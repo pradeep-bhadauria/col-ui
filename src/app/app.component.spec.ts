@@ -7,7 +7,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
 
 let component:  AppComponent;
 let fixture:    ComponentFixture<AppComponent>;
@@ -15,7 +14,7 @@ let fixture:    ComponentFixture<AppComponent>;
 describe('App: Tmp', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:        [HttpClientModule, RouterTestingModule, StoreModule.forRoot({}), SharedModule],
+      imports:        [HttpClientModule, RouterTestingModule, StoreModule.forRoot({})],
       declarations:   [AppComponent],
       providers:      [],
 

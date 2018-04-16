@@ -6,32 +6,23 @@ import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { routes } from './app.router';
-import { metaReducers, reducers } from './store';
-import { SharedModule } from './shared/shared.module';
-import { WeatherService } from './weather/weather.service';
-import { WeatherEffects } from './store/weather/weather.effects';
-import { FeedEffects } from './store/feed/feed.effects';
-import { ProfileEffects } from './store/profile/profile.effects';
 import { environment } from '../environments/environment';
+
+import { Constants, AlertComponent, AlertService } from './utils/index';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
-    SharedModule,
     FormsModule,
-    HttpClientModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([
-      ProfileEffects,
-      FeedEffects,
-      WeatherEffects
-    ]),
+    HttpClientModule, HttpModule,
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
     RouterModule.forRoot(
       routes,
@@ -41,7 +32,7 @@ import { environment } from '../environments/environment';
     )
   ],
   providers: [
-    WeatherService
+    AlertService
   ],
   bootstrap: [
     AppComponent
