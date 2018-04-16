@@ -1,2 +1,93 @@
-<h2>User Level</h2>
+<div class="row">
+    <div class="col-md-8">
+        <label>Show </label>
+        <select id="page-len" size="1" class="form-control" (change)="pageLimitChanged($event.target.value)">
+            <option *ngFor="let item of pageOptions" value="{{item}}">{{item}}</option>
+        </select>
+        <label> Rows</label>
+    </div>
+    <div class="col-md-4" >
+        <div class="input-group">
+            <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> 
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+            </span>
+        </div>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-md-12">      
+        <a class="btn btn-primary btn-sm">&lt;</a>
+        <a class="btn btn-primary btn-sm">&gt;</a>
+        <span style="
+        margin: 8px;
+        font-size: 12px;">You are viewing {{offset}} - {{add(offset,pageLimit)}} rows of 100 rows</span>
+        <a class="btn btn-primary btn-sm pull-right" (click)="openModel()">
+            <span class="glyphicon glyphicon-plus"></span> Add New User Level
+        </a>
+        
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">      
+        <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped">
+        <!--table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered"-->
+        <!--table cellpadding="0" cellspacing="0" border="0" class="table  table-hover data-table myTable"-->
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Updated</th>
+                    <th>Created</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gradeX" *ngFor="let item of arrUserLevel">
+                    <td class="center">
+                        <input type="checkbox" value="Bike" >
+                    </td>
+                    <td class="center">
+                        <input value={{item.name}} type="textbox" class="form-control"/>
+                    </td>
+                    <td>
+                        <input value={{item.desc}}  type="textbox" class="form-control"/>
+                    </td>
+                    <td class="center">{{item.updated}}</td>
+                    <td class="center">{{item.created}}</td>
+                    <td  id="{{item.id}}" class="center">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                        <span (click)="this.delete()" class="glyphicon glyphicon-trash"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div #myModal class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title ">Add New User Level</h5>
+                    <button type="button" class="close" (click)="closeModel()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <form>
+                            <input id="name" type="textbox" class="form-control" placeholder="Enter User Level Here"/>
+                            <textarea id="desc" class="form-control" placeholder="Enter Description Here"></textarea>
+                            <a class="btn btn-primary">Add</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

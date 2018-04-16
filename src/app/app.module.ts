@@ -27,7 +27,7 @@ import { Constants, AlertComponent, AlertService } from './utils/index';
     RouterModule.forRoot(
       routes,
       {
-        useHash: true
+        useHash: false
       }
     )
   ],

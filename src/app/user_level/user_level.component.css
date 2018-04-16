@@ -1,0 +1,15 @@
+.glyphicon {
+    cursor: pointer !important;
+}
+.row {
+    margin: 10px 0px !important;
+}
+#page-len {
+    width: 80px;
+    margin: 0px 10px;
+    display: inline;
+}
+
+.tab-pager {
+    border-radius: 50%; 
+}
