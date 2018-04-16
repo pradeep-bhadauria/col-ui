@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { UserLevelService } from './user_level.service';
 import {UserLevel} from './user_level.model';
@@ -14,9 +14,7 @@ import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 })
 //declare let $: any;
 
-export class UserLevelComponent  implements AfterViewInit {
-  @ViewChild('myModal') myModal:ElementRef;
-  
+export class UserLevelComponent {
   loading = true;
   pageLimit = Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
   offset = Constants.DEFAULT.OFFSET;
@@ -84,20 +82,5 @@ export class UserLevelComponent  implements AfterViewInit {
     var r = a+b;
     return parseInt(r.toString());
   }
-
-  ngAfterViewInit() {
-    
-  }
-
-  openModel() {
-    console.log(this.myModal);
-    //document.getElementById("myModal").className = 'modal fade show';
-    this.myModal.nativeElement.className = 'modal fade show';
-  }
-
-  closeModel() {
-     //this.myModal.nativeElement.className = 'modal hide';
-  }
-
 }
 
