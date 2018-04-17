@@ -5,6 +5,7 @@ import {UserLevel} from './user_level.model';
 import { Constants, AlertService } from './../utils/index';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 
+
 @Component({
   selector: 'app-user-level',
   templateUrl: './user_level.component.html',
@@ -22,7 +23,6 @@ export class UserLevelComponent {
 
   arrUserLevel = new Array(); 
   constructor(private userLevelService: UserLevelService, private alertService: AlertService) {
-    
     this.loading = true;
     this.getAll(0);
   } 
@@ -71,7 +71,7 @@ export class UserLevelComponent {
   }
 
   delete(){
-    console.log(this);    
+    //console.log(this);    
   }
 
   pageLimitChanged(value: number){
