@@ -12,7 +12,7 @@ app.use(compression());
 app.use(urlencoded({ extended: true }));
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/client/index.html'));
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 
