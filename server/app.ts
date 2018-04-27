@@ -11,16 +11,16 @@ app.use(json());
 app.use(compression());
 app.use(urlencoded({ extended: true }));
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
-
-
 if (app.get("env") === "production") {
 
   // in production mode run application from dist folder
   app.use(express.static(path.join(__dirname, "/../client")));
 }
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
+
 
 // catch 404 and forward to error handler
 app.use((req: express.Request, res: express.Response, next) => {
