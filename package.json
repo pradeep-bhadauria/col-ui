@@ -3,13 +3,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
-    "start": "node server.js",
-    "build": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },  
+    "start": "concurrently --kill-others \"npm run server:run\" \"ng serve --aot --progress=false --proxy-config proxy.conf.json\"",
+    "lint:client": "ng lint",
+    "lint:server": "tslint './server/**/*.ts' -c ./server/tslint.json --fix",
+    "test:client": "ng test --watch false",
+    "e2e:client": "ng e2e",
+    "build": "ng build --prod --sm=false --aot --output-path=dist/client && npm run server:build",
+    "server:run": "nodemon",
+    "server:build": "tsc -p ./server",
+    "postinstall": "npm run build"
+  },
   "author": "Pradeep Bhadauria",
   "engines": {
     "node": "8.11.1",
@@ -26,8 +29,11 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
     "express": "^4.16.3",
+    "morgan": "^1.9.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
