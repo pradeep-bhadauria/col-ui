@@ -9,16 +9,11 @@ import { app } from "../app";
 import { serverPort } from "../config";
 import { print } from "util";
 
-const path = require('path');
 /**
  * Get port from environment and store in Express.
  */
 const port = normalizePort(process.env.PORT || serverPort);
 app.set("port", port);
-console.log(path);
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/client/index.html'));
-});
 
 
 /**

@@ -11,6 +11,10 @@ app.use(json());
 app.use(compression());
 app.use(urlencoded({ extended: true }));
 
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname + '/dist/client/index.html'));
+});
+
 
 if (app.get("env") === "production") {
 
@@ -27,7 +31,6 @@ app.use((req: express.Request, res: express.Response, next) => {
 // production error handler
 // no stacktrace leaked to user
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-
   res.status(err.status || 500);
   res.json({
     error: {},
