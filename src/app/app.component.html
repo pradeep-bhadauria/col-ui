@@ -1,39 +1,24 @@
-<!--div class="main">
-  <router-outlet></router-outlet>
-</div>
-
-<router-outlet name='modal'></router-outlet-->
-
-<!-- nav bar -->
 <header>
-  <nav class="navbar navbar-default navbar-fixed-top"></nav>
+    <nav class="navbar navbar-default navbar-fixed-top"></nav>
 </header>
 <!-- main app container -->
 <section>
-  <div class="jumbotron">
-      <div class="container">
-          <alert></alert>
-          <div [ngClass]="{ 'col-md-12': !showMenu, 'col-md-9': showMenu }">
-              <router-outlet></router-outlet>
-          </div>
-          <div  *ngIf="showMenu" class="col-md-3 hidden-xs hidden-sm">
-              <div class="panel ad">
-                  Advertisment's
-              </div>
-              <div class="footer text-center">
-                  <p>
-                      <a href="#" target="_top">Credits, Copyrights help etc</a>
-                  </p>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="jumbotron">
+        <div class="container">
+            <alert></alert>
+            <div [ngClass]="{ 'col-md-12': !showMenu, 'col-md-9': showMenu }">
+                <router-outlet></router-outlet>
+            </div>
+            <div *ngIf="showMenu" class="col-md-3 hidden-xs hidden-sm">
+                <div class="panel ad">
+                    Advertisment's
+                </div>
+                <div class="footer text-center">
+                    <p>
+                        <a href="#" target="_top">Credits, Copyrights help etc</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-<!-- credits -->
-<footer>
-  <div  *ngIf="!showMenu" class="text-center">
-      <p>
-          <a href="#" target="_top">Credits, Copyrights help etc</a>
-      </p>
-  </div>
-</footer>

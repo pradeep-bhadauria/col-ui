@@ -1,41 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { routes } from './app.router';
-import { environment } from '../environments/environment';
+import { AppRoutingModule } from './/app-routing.module';
+import { UserlevelComponent } from './userlevel/userlevel.component';
+import { UserlevelService } from './services/index';
+import { AlertComponent, AlertService } from './utils/index';
 
-import { Constants, AlertComponent, AlertService } from './utils/index';
+
+const routes: Routes = [
+  { path: 'user-level', component: UserlevelComponent }
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    UserlevelComponent,
     AlertComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,HttpModule,
+    RouterModule.forRoot(routes),
     FormsModule,
-    HttpClientModule, HttpModule,
-    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
-    RouterModule.forRoot(
-      routes,
-      {
-        useHash: false
-      }
-    )
+    AppRoutingModule
   ],
   providers: [
+    UserlevelService,
     AlertService
   ],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
