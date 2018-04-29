@@ -16,15 +16,18 @@ import { CategoryComponent } from './category/category.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { PageComponent } from './page/page.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 const routes: Routes = [
+  { path: '', component: NewsfeedComponent },
   { path: 'user-level', component: UserlevelComponent },
   { path: 'users', component: UserComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'subcategory', component: SubcategoryComponent },
   { path: 'contactus', component: ContactusComponent },
-  { path: 'page', component: PageComponent }
+  { path: 'page', component: PageComponent },
+  { path: 'error', component: NotfoundComponent }
 ];
 
 
@@ -38,7 +41,8 @@ const routes: Routes = [
     CategoryComponent,
     SubcategoryComponent,
     ContactusComponent,
-    PageComponent
+    PageComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

@@ -15,12 +15,15 @@ export class AppComponent  implements OnInit {
     } else {
         this.showMenu = true;
     }
+    /*
     var is_root = location.pathname == "/";
     this.target.clear();
     if(is_root){
       this.showFeeds()
     }
+    */
   }
+  /*
   @ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
   constructor(private cfr: ComponentFactoryResolver) {}
 
@@ -28,4 +31,5 @@ export class AppComponent  implements OnInit {
     let compFactory = this.cfr.resolveComponentFactory(NewsfeedComponent);
     this.target.createComponent(compFactory);
   }
+  */
 }
