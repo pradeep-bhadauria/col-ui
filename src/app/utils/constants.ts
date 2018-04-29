@@ -1,5 +1,5 @@
 export class Constants {
-   public static API_ENDPOINT='https://col-ws.herokuapp.com';
+   public static API_ENDPOINT='http://ws.behindstories.com';
    public static DEFAULT = {
     OFFSET:0,
     TABLE_PAGINATION_LIMIT:10,
