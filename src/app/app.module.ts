@@ -27,7 +27,8 @@ const routes: Routes = [
   { path: 'subcategory', component: SubcategoryComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'page', component: PageComponent },
-  { path: 'error', component: NotfoundComponent }
+  { path: '404', component: NotfoundComponent },
+  { path: '**', redirectTo: '404' }
 ];
 
 
