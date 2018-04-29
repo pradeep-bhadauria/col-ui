@@ -1,5 +1,7 @@
 <header>
-    <nav class="navbar navbar-default navbar-fixed-top"></nav>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <img class="logo" src='/assets/img/logo.png'>
+    </nav>
 </header>
 <!-- main app container -->
 <section>
@@ -7,7 +9,14 @@
         <div class="container">
             <alert></alert>
             <div [ngClass]="{ 'col-md-12': !showMenu, 'col-md-9': showMenu }">
-                <router-outlet></router-outlet>
+                <router-outlet>
+                    <div style="text-align: center;height: 45em; padding: 15%;">
+                        <p style="font-size: 60px;">Coming Soon</p>
+                        <p style="font-size: 18px;">www.BehindStories.com</p>
+                        <p style="font-size: 12px;">We are currently building this website please do come back later.</p>
+
+                    </div>
+                </router-outlet>
             </div>
             <div *ngIf="showMenu" class="col-md-3 hidden-xs hidden-sm">
                 <div class="panel ad">

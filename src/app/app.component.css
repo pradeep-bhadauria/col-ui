@@ -1,0 +1,19 @@
+
+nav {
+    background: #fff;
+    height: 50px;
+    overflow: hidden;
+}
+.jumbotron {
+    margin-top: 50px;
+    padding: 0px;
+    height: 100%;
+}
+.container {
+    background: #fff;
+}
+.logo {
+    height: 49px;
+    width: 235px;
+    margin-top:3px;
+}

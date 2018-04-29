@@ -18,7 +18,7 @@ export class UserlevelComponent implements OnInit {
   pageLimit = Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
   offset = Constants.DEFAULT.OFFSET;
   pageOptions = Constants.DEFAULT.TABLE_PAGE_OPTIONS;
-
+  addUserLevel=false;
   arrUserLevel = new Array(); 
   constructor(private userLevelService: UserlevelService, private alertService: AlertService) {
     this.loading = true;
@@ -70,6 +70,14 @@ export class UserlevelComponent implements OnInit {
 
   delete(){
     //console.log(this);    
+  }
+
+  addUserLevelMain() {
+    if (this.addUserLevel== true){
+      this.addUserLevel=false;
+    } else {
+      this.addUserLevel=true;
+    }
   }
 
   pageLimitChanged(value: number){

@@ -13,3 +13,14 @@
 .tab-pager {
     border-radius: 50%; 
 }
+hr {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+div {
+    padding: 0px !important;
+}
+
+td{
+    font-size: 12px;
+}
