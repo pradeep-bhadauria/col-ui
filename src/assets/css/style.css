@@ -176,7 +176,7 @@ figure.effect-layla:hover h2{padding-top:26%}
 figure.effect-layla:hover h2, figure.effect-layla:hover a{opacity:1; -webkit-transform:translate3d(0,-35px,0); transform:translate3d(0,-35px,0)}
 figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figure.effect-layla:hover a, figure.effect-layla:hover img{-webkit-transition-delay:0.15s; transition-delay:0.15s}
 .single_sidebar{float:left; display:inline; width:100%; margin-bottom:20px}
-.single_sidebar > h2{background:none repeat scroll 0 0 #151515; color:#fff; font-family:"Oswald",sans-serif; font-size:18px; font-weight:400; margin-bottom:10px; margin-left:0; margin-top:5px; padding:0; position:relative; text-align:center; text-transform:uppercase}
+.single_sidebar > h2{color: #8f8f8f;font-family: "Oswald",sans-serif;font-size: 14px;font-weight: 400;margin-bottom: 20px;margin-left: 0;margin-top: 5px;padding: 0;position: relative;text-align: center;text-transform: uppercase;border-bottom: 1px solid #8f8f8f;height: 12px;}
 .single_sidebar > h2 span{padding:4px 10px}
 .cat-item a{background:none repeat scroll 0 0 #e4e4e4; color:#888; display:block; float:left; border-bottom:none !important; font-size:13px; line-height:12px; margin:0 2px 2px 0; padding:12px 17px; -webkit-transition:all 0.5s; -mz-transition:all 0.5s; -ms-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
 .cat-item a:hover{color:#fff; text-decoration:none !important}

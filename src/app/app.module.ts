@@ -15,6 +15,7 @@ import { UserComponent } from './user/user.component';
 import { CategoryComponent } from './category/category.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { ContactusComponent } from './contactus/contactus.component';
+import { PageComponent } from './page/page.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'subcategory', component: SubcategoryComponent },
-  { path: 'contactus', component: ContactusComponent }
+  { path: 'contactus', component: ContactusComponent },
+  { path: 'page', component: PageComponent }
 ];
 
 
@@ -36,7 +38,8 @@ const routes: Routes = [
     UserComponent,
     CategoryComponent,
     SubcategoryComponent,
-    ContactusComponent
+    ContactusComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,
