@@ -20,7 +20,6 @@ import { PageComponent } from './page/page.component';
 
 const routes: Routes = [
   { path: 'user-level', component: UserlevelComponent },
-  { path: 'feeds', component: NewsfeedComponent },
   { path: 'users', component: UserComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'subcategory', component: SubcategoryComponent },

@@ -1,10 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-header, footer{
-    margin: 0px !important;
-}
-
-.logo {
-    height: 49px;
-    width: 235px;
-    margin-top:3px;
-}
+header, footer{margin: 0px !important;}
+.logo {height: 49px;width: 235px;margin-top:3px;}
+.alert {position: fixed;height: 50px;margin-bottom: 0px;bottom: 10px;left: 10px;z-index: 100;}

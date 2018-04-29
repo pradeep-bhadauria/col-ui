@@ -4,15 +4,13 @@ import {UserLevel} from './../models/index';
 import { Constants, AlertService } from './../utils/index';
 
 
-
 @Component({
   selector: 'app-userlevel',
   templateUrl: './userlevel.component.html',
   styleUrls: ['./userlevel.component.css']
 })
 export class UserlevelComponent implements OnInit {
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   loading = true;
   pageLimit = Constants.DEFAULT.TABLE_PAGINATION_LIMIT;

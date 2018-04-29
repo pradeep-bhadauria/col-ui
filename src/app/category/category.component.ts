@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Constants, AlertService } from './../utils/index';
 
 @Component({
   selector: 'app-category',
@@ -9,7 +10,6 @@ export class CategoryComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

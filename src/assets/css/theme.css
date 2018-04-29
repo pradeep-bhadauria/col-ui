@@ -8,11 +8,8 @@
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{background-color:#4063A1}
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{background-color:#4063A1}
 .latest_newsarea span{background:none repeat scroll 0 0 #4063A1}
-.latest_post > h2 span{background:none repeat scroll 0 0 #4063A1}
 #prev-button{color:#4063A1}
 #next-button{color:#4063A1}
-.single_post_content > h2 span{background:none repeat scroll 0 0 #4063A1}
-.single_sidebar > h2 span{ background:none repeat scroll 0 0 #fff}
 .bsbig_fig figcaption a:hover{color:#4063A1}
 .spost_nav .media-body > a:hover{color:#4063A1}
 .cat-item a:hover{background-color:#4063A1}
