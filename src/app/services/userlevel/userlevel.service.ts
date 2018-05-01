@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Constants, AlertService } from './../../utils/index';
+import { Constants, AlertService, AlertComponent } from './../../utils/index';
 import {UserLevel} from './../../models/index';
 import 'rxjs/Rx';
 
@@ -16,12 +16,44 @@ export class UserlevelService {
             );
     }
 
+    delete(userLevelId: number) {
+        return this.http.delete( 
+            Constants.API_ENDPOINT + '/user-level/' + userLevelId, this.jwt()).map(
+                (response: Response) => response.json()
+            );
+    }
+
     getAll(offset: number) {
         return this.http.get( 
             Constants.API_ENDPOINT + '/user-level/offset/' + offset, this.jwt()).map(
                 (response: Response) => response.json()
             );
     }
+
+    update(id: number, name: string, desc: string) {
+        let body = undefined;
+        body = {
+            user_level_name: name,
+            user_level_desc: desc
+        }
+        return this.http.put( 
+            Constants.API_ENDPOINT + '/user-level/' + id,body, this.jwt()).map(
+                (response: Response) => response.json()
+            );
+    }
+
+    add(name: string, desc: string) {
+        let body = undefined;
+        body = {
+            user_level_name: name,
+            user_level_desc: desc
+        }
+        return this.http.post( 
+            Constants.API_ENDPOINT + '/user-level/', body, this.jwt()).map(
+                (response: Response) => response.json()
+            );
+    }
+
 
     // private helper methods
     private jwt() {

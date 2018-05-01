@@ -34,3 +34,5 @@
 .contact_form input[type="submit"]:hover{background-color:#fff; color:#4063A1}
 .related_post > h2 i{color:#4063A1}
 .form-control:focus{border-color:#4063A1;  box-shadow:0 0px 1px #4063A1 inset,0 0 5px #4063A1}
+.edit:hover{color:#4063A1}
+.save:hover{color:#4063A1}
