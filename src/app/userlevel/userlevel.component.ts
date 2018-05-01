@@ -3,6 +3,7 @@ import { UserlevelService } from './../services/index';
 import { UserLevel } from './../models/index';
 import { Constants, AlertService } from './../utils/index';
 import { catchError } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { catchError } from 'rxjs/operators';
 export class UserlevelComponent implements OnInit {
   ngOnInit() { }
 
+  query="";
   loading = true;
   rowCount=0;
   pageLimit:number = Number(Constants.DEFAULT.TABLE_PAGINATION_LIMIT);
@@ -86,6 +88,11 @@ export class UserlevelComponent implements OnInit {
       data => {
         if (data.data != undefined) {
           this.rowCount = JSON.parse(data.data).count;
+          if(this.rowCount <=10){
+            document.getElementById("page-len").setAttribute("disabled","disabled");
+          } else {
+            document.getElementById("page-len").removeAttribute("disabled");
+          }
         } else {
           this.alertService.error(data.message);
         }
@@ -115,6 +122,7 @@ export class UserlevelComponent implements OnInit {
           this.loading = false;
           this.arrUserLevel = Array();
           this.getAll(this.offset, this.pageLimit);
+          this.getCount();
         },
         error => {
           try{
@@ -148,6 +156,7 @@ export class UserlevelComponent implements OnInit {
         this.loading = false;
         this.arrUserLevel = Array();
         this.getAll(0, this.pageLimit);
+        this.getCount();
       },
       error => {
         try{
@@ -163,7 +172,11 @@ export class UserlevelComponent implements OnInit {
   pageLimitChanged(value: number) {
     this.pageLimit = parseInt(value.toString());
     this.arrUserLevel = Array();
-    this.getAll(this.offset, this.pageLimit);
+    if(this.query != "") {
+      this.searchResults(this.offset, this.pageLimit);
+    } else {
+      this.getAll(this.offset, this.pageLimit);
+    }
   }
 
   add(a: number, b: number) {
@@ -301,14 +314,15 @@ export class UserlevelComponent implements OnInit {
       document.getElementById("prev").classList.add("disabled")
     }
     this.arrUserLevel=Array();
-    this.getAll(this.offset, this.pageLimit);
+    if(this.query != "") {
+      this.searchResults(this.offset, this.pageLimit);
+    } else {
+      this.getAll(this.offset, this.pageLimit);
+    }
   }
 
-  search(query:String){
-    this.offset=0;
-    this.pageLimit=Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
-    this.searchCount(query.toString().trim());
-    this.userLevelService.search(query.toString().trim(),this.offset,this.pageLimit).subscribe(
+  searchResults(offset:number, limit:number){
+    this.userLevelService.search(this.query,this.offset,this.pageLimit).subscribe(
       data => {
         if (data.data != undefined) {
           this.arrUserLevel=Array();
@@ -338,13 +352,28 @@ export class UserlevelComponent implements OnInit {
     );
   }
 
-  searchCount(query:String){
+  search(query:String){
+    this.offset=0;
+    document.getElementById("prev").classList.add("disabled")
+    this.pageLimit=Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
+    this.query=query.toString().trim();
+    this.searchCount();
+    this.searchResults(this.offset, this.pageLimit);
+  }
+
+  searchCount(){
     this.offset=0;
     this.pageLimit=Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
-    this.userLevelService.searchCount(query.toString().trim()).subscribe(
+    this.userLevelService.searchCount(this.query).subscribe(
       data => {
         if (data.data != undefined) {
           this.rowCount = JSON.parse(data.data).count;
+          if(this.rowCount <=10){
+            document.getElementById("page-len").setAttribute("disabled","disabled");
+          } else {
+            document.getElementById("page-len").removeAttribute("disabled");
+          }
+
         } else {
           this.alertService.error(data.message);
         }
