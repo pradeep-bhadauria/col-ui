@@ -14,8 +14,9 @@ export class UserlevelComponent implements OnInit {
   ngOnInit() { }
 
   loading = true;
-  pageLimit = Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
-  offset = Constants.DEFAULT.OFFSET;
+  rowCount=0;
+  pageLimit:number = Number(Constants.DEFAULT.TABLE_PAGINATION_LIMIT);
+  offset:number = Number(Constants.DEFAULT.OFFSET);
   pageOptions = Constants.DEFAULT.TABLE_PAGE_OPTIONS;
   addUserLevelContainer = false;
   arrUserLevel = new Array();
@@ -23,12 +24,13 @@ export class UserlevelComponent implements OnInit {
   pValName="";pValDesc="";
   constructor(private userLevelService: UserlevelService, private alertService: AlertService) {
     this.loading = true;
-    this.getAll(this.offset);
+    this.getCount();
+    this.getAll(this.offset, this.pageLimit);
   }
 
-  getAll(offset: number) {
+  getAll(offset: number,limit: number) {
     if (offset == null) { offset = 0; }
-    this.userLevelService.getAll(offset).subscribe(
+    this.userLevelService.getAll(offset,limit).subscribe(
       data => {
         if (data.data != undefined) {
           var ul = JSON.parse(data.data);
@@ -79,6 +81,27 @@ export class UserlevelComponent implements OnInit {
     );
   }
 
+  getCount() {
+    this.userLevelService.count().subscribe(
+      data => {
+        if (data.data != undefined) {
+          this.rowCount = JSON.parse(data.data).count;
+        } else {
+          this.alertService.error(data.message);
+        }
+        this.loading = false;
+      },
+      error => {
+        try{
+          this.alertService.error(JSON.parse(error._body).message);
+        }
+        catch {  
+          this.alertService.error("Server Error: Please try after some time.");
+        }
+      }
+    );
+  }
+
   delete(id,name) {
     if(confirm("Are you sure to delete "+name)) {
       this.userLevelService.delete(id).subscribe(
@@ -91,7 +114,7 @@ export class UserlevelComponent implements OnInit {
           }
           this.loading = false;
           this.arrUserLevel = Array();
-          this.getAll(this.offset);
+          this.getAll(this.offset, this.pageLimit);
         },
         error => {
           try{
@@ -124,7 +147,7 @@ export class UserlevelComponent implements OnInit {
         }
         this.loading = false;
         this.arrUserLevel = Array();
-        this.getAll(0);
+        this.getAll(0, this.pageLimit);
       },
       error => {
         try{
@@ -138,12 +161,19 @@ export class UserlevelComponent implements OnInit {
   }
 
   pageLimitChanged(value: number) {
-    this.pageLimit = value;
+    this.pageLimit = parseInt(value.toString());
+    this.arrUserLevel = Array();
+    this.getAll(this.offset, this.pageLimit);
   }
 
   add(a: number, b: number) {
-    var r = a + b;
-    return parseInt(r.toString());
+    if((a+b)>= this.rowCount){
+      document.getElementById("next").classList.add("disabled")
+      return this.rowCount;
+    } else { 
+      document.getElementById("next").classList.remove("disabled")
+      return a+b;
+    }
   }
 
   save(id, e){
@@ -259,5 +289,76 @@ export class UserlevelComponent implements OnInit {
     tr.children[1].innerHTML=this.pValDesc;this.pValDesc="";
   }
   
+  offsetChanged(o: number){
+    if(o==1){
+      this.offset= this.offset + this.pageLimit;
+    } else {
+      this.offset= this.offset - this.pageLimit;
+    }
+    if (this.offset != 0){
+      document.getElementById("prev").classList.remove("disabled")
+    } else {
+      document.getElementById("prev").classList.add("disabled")
+    }
+    this.arrUserLevel=Array();
+    this.getAll(this.offset, this.pageLimit);
+  }
+
+  search(query:String){
+    this.offset=0;
+    this.pageLimit=Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
+    this.searchCount(query.toString().trim());
+    this.userLevelService.search(query.toString().trim(),this.offset,this.pageLimit).subscribe(
+      data => {
+        if (data.data != undefined) {
+          this.arrUserLevel=Array();
+          var ul = JSON.parse(data.data);
+          ul.forEach(e => {
+            var u = new UserLevel;
+            u.id = e.id;
+            u.name = e.name;
+            u.desc = e.desc;
+            u.updated = e.updated;
+            u.created = e.created;
+            this.arrUserLevel.push(u);
+          });
+        } else {
+          this.alertService.error(data.message);
+        }
+        this.loading = false;
+      },
+      error => {
+        try{
+          this.alertService.error(JSON.parse(error._body).message);
+        }
+        catch {  
+          this.alertService.error("Server Error: Please try after some time.");
+        }
+      }
+    );
+  }
+
+  searchCount(query:String){
+    this.offset=0;
+    this.pageLimit=Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
+    this.userLevelService.searchCount(query.toString().trim()).subscribe(
+      data => {
+        if (data.data != undefined) {
+          this.rowCount = JSON.parse(data.data).count;
+        } else {
+          this.alertService.error(data.message);
+        }
+        this.loading = false;
+      },
+      error => {
+        try{
+          this.alertService.error(JSON.parse(error._body).message);
+        }
+        catch {  
+          this.alertService.error("Server Error: Please try after some time.");
+        }
+      }
+    );
+  }
 
 }

@@ -16,6 +16,13 @@ export class UserlevelService {
             );
     }
 
+    count() {
+        return this.http.get( 
+            Constants.API_ENDPOINT + '/user-level/count', this.jwt()).map(
+                (response: Response) => response.json()
+            );
+    }
+
     delete(userLevelId: number) {
         return this.http.delete( 
             Constants.API_ENDPOINT + '/user-level/' + userLevelId, this.jwt()).map(
@@ -23,9 +30,31 @@ export class UserlevelService {
             );
     }
 
-    getAll(offset: number) {
+    getAll(offset: number,limit: number) {
         return this.http.get( 
-            Constants.API_ENDPOINT + '/user-level/offset/' + offset, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/' + offset + "/" + limit, this.jwt()).map(
+                (response: Response) => response.json()
+            );
+    }
+
+    search(query: String, offset: number,limit: number) {
+        let body = undefined;
+        body = {
+            query: query
+        }
+        return this.http.post( 
+            Constants.API_ENDPOINT + '/user-level/search/' + offset + "/" + limit, body, this.jwt()).map(
+                (response: Response) => response.json()
+            );
+    }
+
+    searchCount(query: String) {
+        let body = undefined;
+        body = {
+            query: query
+        }
+        return this.http.post( 
+            Constants.API_ENDPOINT + '/user-level/search-count', body, this.jwt()).map(
                 (response: Response) => response.json()
             );
     }

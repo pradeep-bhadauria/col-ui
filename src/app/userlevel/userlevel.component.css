@@ -31,3 +31,8 @@ td{
 .cancel, .delete {color:#900604;}
 .editing{background: #deeaff !important;}
 .editable{border:1px solid #deeaff; background: #fff;}
+.disabled{
+    background: #efefef;
+    color: black;
+    border: 1px solid #dbdbdb;
+}
