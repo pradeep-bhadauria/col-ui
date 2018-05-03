@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { NgDatepickerModule } from 'ng2-datepicker';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -17,6 +18,9 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { PageComponent } from './page/page.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
@@ -28,6 +32,9 @@ const routes: Routes = [
   { path: 'contactus', component: ContactusComponent },
   { path: 'page', component: PageComponent },
   { path: '404', component: NotfoundComponent },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '**', redirectTo: '404' }
 ];
 
@@ -43,10 +50,13 @@ const routes: Routes = [
     SubcategoryComponent,
     ContactusComponent,
     PageComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    RegistrationComponent,
+    LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,NgDatepickerModule,
     HttpClientModule,HttpModule,
     RouterModule.forRoot(routes, {useHash: false}),
     FormsModule,
