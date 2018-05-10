@@ -9,8 +9,6 @@ import { NgDatepickerModule } from 'ng2-datepicker';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { UserlevelComponent } from './userlevel/userlevel.component';
-import { UserlevelService } from './services/index';
-import { AlertComponent, AlertService } from './utils/index';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { UserComponent } from './user/user.component';
 import { CategoryComponent } from './category/category.component';
@@ -21,7 +19,10 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ComfirmemailComponent } from './comfirmemail/comfirmemail.component';
 
+import { AlertComponent, AlertService } from './utils/index';
+import { UserlevelService, UserService } from './services/index';
 
 const routes: Routes = [
   { path: '', component: NewsfeedComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'confirm-email', component: ComfirmemailComponent },
   { path: '**', redirectTo: '404' }
 ];
 
@@ -53,7 +55,8 @@ const routes: Routes = [
     NotfoundComponent,
     RegistrationComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ComfirmemailComponent
   ],
   imports: [
     BrowserModule,NgDatepickerModule,
@@ -63,7 +66,7 @@ const routes: Routes = [
     AppRoutingModule
   ],
   providers: [
-    UserlevelService,
+    UserlevelService,UserService,
     AlertService
   ],
   bootstrap: [AppComponent]

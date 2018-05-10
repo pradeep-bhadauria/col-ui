@@ -5,7 +5,7 @@
     <div class="main-login main-center">
         <form class="form-horizontal">
             <div class="form-group">
-                <label for="fname" class="cols-sm-2 control-label">First Name</label>
+                <label for="fname" class="cols-sm-2 control-label">First Name</label><span class="error">{{fname_err}}</span>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="form-group">
-                <label for="lname" class="cols-sm-2 control-label">Last Name</label>
+                <label for="lname" class="cols-sm-2 control-label">Last Name</label><span class="error">{{lname_err}}</span>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -29,7 +29,7 @@
             </div>
 
             <div class="form-group">
-                <label for="email" class="cols-sm-2 control-label">Email</label>
+                <label for="email" class="cols-sm-2 control-label">Email</label><span class="error">{{email_err}}</span>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -41,7 +41,7 @@
             </div>
 
             <div class="form-group">
-                <label for="dob" class="cols-sm-2 control-label">DOB</label>
+                <label for="dob" class="cols-sm-2 control-label">DOB</label><span class="error">{{dob_err}}</span>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -53,7 +53,7 @@
             </div>
       
             <div class="form-group">
-                <label for="password" class="cols-sm-2 control-label">Password</label>
+                <label for="password" class="cols-sm-2 control-label">Password</label><span class="error">{{password_err}}</span>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -65,7 +65,7 @@
             </div>
 
             <div class="form-group">
-                <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label><span class="error">{{confirm_err}}</span>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -77,7 +77,7 @@
             </div>
 
             <div class="form-group ">
-                <button (click)="registerUser()" type="button" class="btn btn-primary btn-block login-button">Register</button>
+                <button (click)="registerUser()" id="register" type="button" class="btn btn-primary btn-block login-button">Register</button>
             </div>
             <div class="login-register">
                 <a href="/login">Login</a>

@@ -8,28 +8,18 @@ import {NewsfeedComponent} from './newsfeed/newsfeed.component'
 })
 export class AppComponent  implements OnInit {
   showMenu=false;
+  currentUser = JSON.parse(localStorage.getItem('currentUser'));
   ngOnInit() {
-    var currentUser = localStorage.getItem('currentUser');
-    if (currentUser == null){
+    if (this.currentUser == null){
         this.showMenu = false;
     } else {
         this.showMenu = true;
     }
-    /*
-    var is_root = location.pathname == "/";
-    this.target.clear();
-    if(is_root){
-      this.showFeeds()
-    }
-    */
   }
-  /*
-  @ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
-  constructor(private cfr: ComponentFactoryResolver) {}
 
-  showFeeds() {
-    let compFactory = this.cfr.resolveComponentFactory(NewsfeedComponent);
-    this.target.createComponent(compFactory);
+  logout(){
+    localStorage.removeItem('currentUser');
+    window.location.href="/"
   }
-  */
+
 }
