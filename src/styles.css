@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 header, footer{margin: 0px !important;}
 .logo {height: 49px;width: 235px;margin-top:3px;}
-.alert {position: fixed;height: 50px;margin-bottom: 0px;bottom: 10px;left: 10px;z-index: 100;}
+.alert {
+    z-index: 100;
+    border-radius: 0px;
+    padding: 5px 10px;
+    font-size: 12px;
+    position: absolute;
+    width: 97.5%;
+    margin-top: 0px;
+}
 .container {padding-right: 0px;padding-left: 0px; }
 .glyphicon {top: 0px; margin-right: 2px;}
 .ngx-datepicker-calendar-container{z-index: 1000;}
@@ -13,3 +21,4 @@ input {
     border: 1px solid #dbdbdb !important;
 	border-radius: 0px 4px 4px 0px !important;
 }
+.search-box{border-radius: 5px 0px 0px 5px!important;}

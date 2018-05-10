@@ -22,7 +22,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ComfirmemailComponent } from './comfirmemail/comfirmemail.component';
 
 import { AlertComponent, AlertService } from './utils/index';
-import { UserlevelService, UserService } from './services/index';
+import { UserlevelService, UserService, CategoriesService, SubCategoriesService } from './services/index';
 
 const routes: Routes = [
   { path: '', component: NewsfeedComponent },
@@ -66,7 +66,7 @@ const routes: Routes = [
     AppRoutingModule
   ],
   providers: [
-    UserlevelService,UserService,
+    UserlevelService,UserService, CategoriesService, SubCategoriesService,
     AlertService
   ],
   bootstrap: [AppComponent]

@@ -58,7 +58,11 @@ export class RegistrationComponent implements OnInit {
 
     if (this.password.length < 6 || this.password.length > 30) {
       this.password_err = "Should be between 6 - 30 characters"; allGood = false;
-    } else {
+    } 
+    else if(!this.isValidPassword(this.password)){
+      this.password_err = "Can contain A-Z a-z 0-9 _ - ! @ # $ % & * ( )"; allGood = false;
+    }
+    else {
       this.password_err = ""
     }
     
@@ -152,6 +156,10 @@ export class RegistrationComponent implements OnInit {
   public isValidEmail(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     return re.test(String(email).toLowerCase());
+  }
+  public isValidPassword(p) {
+    var re = /^[-A-Za-z0-9_!@#$%&*()]*$/
+    return re.test(String(p));
   }
 
 }

@@ -11,13 +11,20 @@ import { AlertService } from './alert.service';
 export class AlertComponent {
     message: any;
 
-    constructor(private alertService: AlertService) { }
+    constructor(private alertService: AlertService) {
 
-    ngOnInit() {
-        this.alertService.getMessage().subscribe(message => { this.message = message; });
     }
 
-    hideAlert(){
+    ngOnInit() {
+        this.alertService.getMessage().subscribe(message => {
+            this.message = message;
+            setTimeout(() => {
+                this.message = undefined;
+            }, 5000);
+        });
+    }
+
+    hideAlert() {
         this.message = undefined;
     }
 }
