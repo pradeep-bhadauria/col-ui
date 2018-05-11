@@ -35,6 +35,13 @@ export class SubCategoriesService {
           );
   }
 
+  getByCategory(catId: number) {
+    return this.http.get(
+        Constants.API_ENDPOINT + '/sub-categories/categories/' + catId, this.jwt()).map(
+            (response: Response) => response.json()
+        );
+}
+
   search(query: String, offset: number, limit: number) {
       let body = undefined;
       body = {

@@ -42,7 +42,6 @@ export class SubcategoryComponent implements OnInit {
             this.categoryList.push(e);
           });
         }
-        console.log(this.categoryList);
       }
     );
   }
@@ -217,7 +216,6 @@ export class SubcategoryComponent implements OnInit {
     if(name != "" && desc != ""){
       this.subCategoriesService.update(id, name, desc, cid.toString()).subscribe(
         data => {
-          console.log(data);
           this.alertService.success(data.message);
           this.loading = false;
           this.isEditing=false;

@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { NgDatepickerModule } from 'ng2-datepicker';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -22,7 +23,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ComfirmemailComponent } from './comfirmemail/comfirmemail.component';
 
 import { AlertComponent, AlertService } from './utils/index';
-import { UserlevelService, UserService, CategoriesService, SubCategoriesService } from './services/index';
+import { UserlevelService, UserService, CategoriesService, SubCategoriesService, CMSService } from './services/index';
+import { CmsComponent } from './cms/cms.component';
 
 const routes: Routes = [
   { path: '', component: NewsfeedComponent },
@@ -37,6 +39,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'confirm-email', component: ComfirmemailComponent },
+  { path: 'editor', component: CmsComponent },
   { path: '**', redirectTo: '404' }
 ];
 
@@ -56,17 +59,19 @@ const routes: Routes = [
     RegistrationComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    ComfirmemailComponent
+    ComfirmemailComponent,
+    CmsComponent
   ],
   imports: [
     BrowserModule,NgDatepickerModule,
     HttpClientModule,HttpModule,
     RouterModule.forRoot(routes, {useHash: false}),
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    EditorModule
   ],
   providers: [
-    UserlevelService,UserService, CategoriesService, SubCategoriesService,
+    UserlevelService,UserService, CategoriesService, SubCategoriesService, CMSService,
     AlertService
   ],
   bootstrap: [AppComponent]
