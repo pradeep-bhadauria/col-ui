@@ -19,6 +19,12 @@ export class CMSService {
     );
   }
 
+  getCountries() {
+    return this.http.get(Constants.API_ENDPOINT + '/countries/').map(
+      (response: Response) => response.json()
+    );
+  }
+
   add(cat_id:string, sub_cat_id:string, subject:string,keywords,images,country:string, state:string) {
     let body = undefined;
     let user = JSON.parse(localStorage.getItem('currentUser'));
