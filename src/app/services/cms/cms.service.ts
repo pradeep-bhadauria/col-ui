@@ -8,13 +8,13 @@ export class CMSService {
 
   constructor(private http: Http) { }
 
-  uploadImages(formData: FormData) {
+  uploadImages(formData: FormData, article_id: number) {
     let headers = new Headers();
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     /** In Angular 5, including the header Content-Type can invalidate your request */
     headers.append('Authorization', 'Bearer ' + currentUser.token);
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(Constants.API_ENDPOINT + '/upload/images/' + currentUser.id, formData, options).map(
+    return this.http.post(Constants.API_ENDPOINT + '/upload/images/' + article_id, formData, options).map(
       (response: Response) => response.json()
     );
   }
@@ -25,25 +25,61 @@ export class CMSService {
     );
   }
 
-  add(cat_id:string, sub_cat_id:string, subject:string,keywords,images,country:string, state:string) {
+  getArticleById(article_id: number) {
+    return this.http.get(Constants.API_ENDPOINT + '/articles/' + article_id).map(
+      (response: Response) => response.json()
+    );
+  }
+
+  add(cat_id: string, sub_cat_id: string, subject: string, keywords, images, country: string, state: string, content: string, city: string) {
     let body = undefined;
     let user = JSON.parse(localStorage.getItem('currentUser'));
+    var keywordList = Array();
+    keywords.trim().split(" ").forEach(element => {
+      keywordList.push({ "keyword": element.toString() });
+    });
     body = {
-      category: cat_id,
-      sub_category: sub_cat_id,
-      user: user.id,
-      subject:subject,
-      keywords:keywords,
-      images:images,
-      body:body,
-      country:country,
-      state:state
+      category: cat_id.toString(),
+      sub_category: sub_cat_id.toString(),
+      user: user.id.toString(),
+      subject: subject.trim().toString(),
+      keywords: keywordList,
+      images: images,
+      body: content.trim().toString(),
+      country: country.trim().toString(),
+      state: state.trim().toString(),
+      city: city.trim().toString(),
     }
     return this.http.post(
-        Constants.API_ENDPOINT + '/sub-categories/', body, this.jwt()).map(
-            (response: Response) => response.json()
-        );
-}
+      Constants.API_ENDPOINT + '/articles/', body, this.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
+  update(article_id: string, cat_id: string, sub_cat_id: string, subject: string, keywords, images, country: string, state: string, content: string, city: string) {
+    let body = undefined;
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    var keywordList = Array();
+    keywords.trim().split(" ").forEach(element => {
+      keywordList.push({ "keyword": element.toString() });
+    });
+    body = {
+      category: cat_id.toString(),
+      sub_category: sub_cat_id.toString(),
+      user: user.id.toString(),
+      subject: subject.trim().toString(),
+      keywords: keywordList,
+      images: images,
+      body: content.trim().toString(),
+      country: country.trim().toString(),
+      state: state.trim().toString(),
+      city: city.trim().toString(),
+    }
+    return this.http.put(
+      Constants.API_ENDPOINT + '/articles/' + article_id, body, this.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
 
   // private helper methods
   private jwt() {

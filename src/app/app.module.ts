@@ -40,6 +40,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'confirm-email', component: ComfirmemailComponent },
   { path: 'editor', component: CmsComponent },
+  { path: 'editor/:id', component: CmsComponent },
   { path: '**', redirectTo: '404' }
 ];
 
