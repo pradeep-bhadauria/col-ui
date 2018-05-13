@@ -9,7 +9,8 @@ import { SubCategories, Categories } from './../models/index';
   styleUrls: ['./subcategory.component.css']
 })
 export class SubcategoryComponent implements OnInit {
-  ngOnInit() {}
+  ngOnInit() {
+  }
     
   query="";
   loading = true;
@@ -28,6 +29,12 @@ export class SubcategoryComponent implements OnInit {
     private categoriesService: CategoriesService
   ) {
     this.loading = true;
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser == null){
+      window.location.href = "/login";
+    } else if (currentUser.id != Constants.ROLES.ADMIN){
+      window.location.href = "/?redirect=RestrictedAccess"
+    }
     this.getCategoriesCount();
     this.getCount();
     this.getAll(this.offset, this.pageLimit);

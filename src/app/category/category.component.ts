@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from './../services/index';
 import { Categories } from './../models/index';
 import { Constants, AlertService } from './../utils/index';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -21,7 +22,17 @@ export class CategoryComponent implements OnInit {
   arrCategories = new Array();
   isEditing=false;
   pValName="";pValDesc="";
-  constructor(private categoriesService: CategoriesService, private alertService: AlertService) {
+  constructor(
+    private categoriesService: CategoriesService, 
+    private alertService: AlertService,
+    private route: ActivatedRoute
+  ) {
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser == null){
+      window.location.href = "/login";
+    } else if (currentUser.id != Constants.ROLES.ADMIN){
+      window.location.href = "/?redirect=RestrictedAccess"
+    }
     this.loading = true;
     this.getCount();
     this.getAll(this.offset, this.pageLimit);
@@ -114,7 +125,7 @@ export class CategoryComponent implements OnInit {
             var ul = JSON.parse(data.data);
             this.alertService.success(data.message);
           } else {
-            this.alertService.error(data.message);
+            this.alertService.success(data.message);
           }
           this.loading = false;
           this.arrCategories = Array();
@@ -148,7 +159,7 @@ export class CategoryComponent implements OnInit {
           var ul = JSON.parse(data.data);
           this.alertService.success(data.message);
         } else {
-          this.alertService.error(data.message);
+          this.alertService.success(data.message);
         }
         this.loading = false;
         this.arrCategories = Array();

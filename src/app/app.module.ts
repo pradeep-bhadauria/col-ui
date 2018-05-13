@@ -24,7 +24,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ComfirmemailComponent } from './comfirmemail/comfirmemail.component';
 
 import { AlertComponent, AlertService } from './utils/index';
-import { UserlevelService, UserService, CategoriesService, SubCategoriesService, CMSService, ProfileService } from './services/index';
+import { UserlevelService, UserService, CategoriesService, SubCategoriesService, CMSService, ProfileService, PageService } from './services/index';
 import { CmsComponent } from './cms/cms.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -79,7 +79,7 @@ const routes: Routes = [
     MomentModule
   ],
   providers: [
-    UserlevelService,UserService, CategoriesService, SubCategoriesService, CMSService,ProfileService,
+    UserlevelService,UserService, CategoriesService, SubCategoriesService, CMSService,ProfileService,PageService,
     AlertService
   ],
   bootstrap: [AppComponent]
