@@ -31,7 +31,7 @@ export class CMSService {
     );
   }
 
-  add(cat_id: string, sub_cat_id: string, subject: string, keywords, images, country: string, state: string, content: string, city: string) {
+  add(cat_id: string, sub_cat_id: string, subject: string,overview:string, keywords, images, country: string, state: string, content: string, city: string) {
     let body = undefined;
     let user = JSON.parse(localStorage.getItem('currentUser'));
     var keywordList = Array();
@@ -43,6 +43,7 @@ export class CMSService {
       sub_category: sub_cat_id.toString(),
       user: user.id.toString(),
       subject: subject.trim().toString(),
+      overview: overview.toString().trim(),
       keywords: keywordList,
       images: images,
       body: content.trim().toString(),
@@ -56,7 +57,7 @@ export class CMSService {
       );
   }
 
-  update(article_id: string, cat_id: string, sub_cat_id: string, subject: string, keywords, images, country: string, state: string, content: string, city: string) {
+  update(article_id: string, cat_id: string, sub_cat_id: string, subject: string,overview:string, keywords, images, country: string, state: string, content: string, city: string) {
     let body = undefined;
     let user = JSON.parse(localStorage.getItem('currentUser'));
     var keywordList = Array();
@@ -68,6 +69,7 @@ export class CMSService {
       sub_category: sub_cat_id.toString(),
       user: user.id.toString(),
       subject: subject.trim().toString(),
+      overview: overview.toString().trim(),
       keywords: keywordList,
       images: images,
       body: content.trim().toString(),

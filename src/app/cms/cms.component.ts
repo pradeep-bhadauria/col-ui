@@ -29,6 +29,7 @@ export class CmsComponent implements OnInit {
   selectedCategory = null;
   selectedSubCategory = null;
   subject = "";
+  overview="";
   country = "";
   state = "";
   city = "";
@@ -222,7 +223,7 @@ export class CmsComponent implements OnInit {
   }
 
   addArticle() {
-    this.cmsService.add(this.selectedCategory, this.selectedSubCategory, this.subject, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
+    this.cmsService.add(this.selectedCategory, this.selectedSubCategory, this.subject, this.overview,this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
       data => {
         if (data.data != undefined) {
           this.article_id = data.data.id;
@@ -246,7 +247,7 @@ export class CmsComponent implements OnInit {
   }
 
   updateArticle(){
-    this.cmsService.update(this.article_id, this.selectedCategory, this.selectedSubCategory, this.subject, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
+    this.cmsService.update(this.article_id, this.selectedCategory, this.selectedSubCategory, this.subject,this.overview, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
       data => {
         this.alertService.success("Success: Article updated successfully");
       },
