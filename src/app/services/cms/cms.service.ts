@@ -52,7 +52,7 @@ export class CMSService {
       city: city.trim().toString(),
     }
     return this.http.post(
-      Constants.API_ENDPOINT + '/articles/', body, this.jwt()).map(
+      Constants.API_ENDPOINT + '/articles/', body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
@@ -78,19 +78,8 @@ export class CMSService {
       city: city.trim().toString(),
     }
     return this.http.put(
-      Constants.API_ENDPOINT + '/articles/' + article_id, body, this.jwt()).map(
+      Constants.API_ENDPOINT + '/articles/' + article_id, body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
-
-  // private helper methods
-  private jwt() {
-    // create authorization header with jwt token
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.token) {
-      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-      return new RequestOptions({ headers: headers });
-    }
-  }
-
 }

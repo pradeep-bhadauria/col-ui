@@ -1,3 +1,5 @@
+import { Headers, RequestOptions } from '@angular/http';
+
 export class Constants {
    public static API_ENDPOINT='http://ws.behindstories.com';
    //public static API_ENDPOINT='http://localhost:5000';
@@ -11,4 +13,12 @@ export class Constants {
     TABLE_PAGINATION_LIMIT:10,
     TABLE_PAGE_OPTIONS:[10,25,50,100]
    }
+
+   public static jwt() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.token) {
+      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+      return new RequestOptions({ headers: headers });
+    }
+  }
 }

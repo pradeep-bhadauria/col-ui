@@ -15,7 +15,7 @@ export class UserService {
       user_email: email
     }
     return this.http.post(
-      Constants.API_ENDPOINT + '/users/email', body, this.jwt()).map(
+      Constants.API_ENDPOINT + '/users/email', body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
@@ -31,7 +31,7 @@ export class UserService {
       user_password: password
     }
     return this.http.post(
-      Constants.API_ENDPOINT + '/users/', body, this.jwt()).map(
+      Constants.API_ENDPOINT + '/users/', body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
@@ -42,7 +42,7 @@ export class UserService {
       email: email
     }
     return this.http.post(
-      Constants.API_ENDPOINT + '/auth/send-verification-link', body, this.jwt()).map(
+      Constants.API_ENDPOINT + '/auth/send-verification-link', body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
@@ -54,7 +54,7 @@ export class UserService {
       token: token
     }
     return this.http.put(
-      Constants.API_ENDPOINT + '/auth/confirm-email', body, this.jwt()).map(
+      Constants.API_ENDPOINT + '/auth/confirm-email', body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
@@ -67,19 +67,8 @@ export class UserService {
       password: password
     }
     return this.http.post(
-      Constants.API_ENDPOINT + '/auth/login', body, this.jwt()).map(
+      Constants.API_ENDPOINT + '/auth/login', body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
-
-  // private helper methods
-  private jwt() {
-    // create authorization header with jwt token
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.token) {
-      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-      return new RequestOptions({ headers: headers });
-    }
-  }
-
 }

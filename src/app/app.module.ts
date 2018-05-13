@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { MomentModule } from 'angular2-moment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -23,8 +24,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ComfirmemailComponent } from './comfirmemail/comfirmemail.component';
 
 import { AlertComponent, AlertService } from './utils/index';
-import { UserlevelService, UserService, CategoriesService, SubCategoriesService, CMSService } from './services/index';
+import { UserlevelService, UserService, CategoriesService, SubCategoriesService, CMSService, ProfileService } from './services/index';
 import { CmsComponent } from './cms/cms.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: NewsfeedComponent },
@@ -34,6 +36,7 @@ const routes: Routes = [
   { path: 'subcategory', component: SubcategoryComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'page', component: PageComponent },
+  { path: ':category/:subcategory/:article', component: PageComponent },
   { path: '404', component: NotfoundComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
@@ -41,6 +44,8 @@ const routes: Routes = [
   { path: 'confirm-email', component: ComfirmemailComponent },
   { path: 'editor', component: CmsComponent },
   { path: 'editor/:id', component: CmsComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'profile/:module', component: ProfileComponent },
   { path: '**', redirectTo: '404' }
 ];
 
@@ -61,7 +66,8 @@ const routes: Routes = [
     LoginComponent,
     ForgotPasswordComponent,
     ComfirmemailComponent,
-    CmsComponent
+    CmsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,NgDatepickerModule,
@@ -69,10 +75,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {useHash: false}),
     FormsModule,
     AppRoutingModule,
-    EditorModule
+    EditorModule,
+    MomentModule
   ],
   providers: [
-    UserlevelService,UserService, CategoriesService, SubCategoriesService, CMSService,
+    UserlevelService,UserService, CategoriesService, SubCategoriesService, CMSService,ProfileService,
     AlertService
   ],
   bootstrap: [AppComponent]

@@ -11,28 +11,28 @@ export class UserlevelService {
 
     getUserLevel(userLevelId: number) {
         return this.http.get( 
-            Constants.API_ENDPOINT + '/user-level/' + userLevelId, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/' + userLevelId, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
 
     count() {
         return this.http.get( 
-            Constants.API_ENDPOINT + '/user-level/count', this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/count', Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
 
     delete(userLevelId: number) {
         return this.http.delete( 
-            Constants.API_ENDPOINT + '/user-level/' + userLevelId, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/' + userLevelId, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
 
     getAll(offset: number,limit: number) {
         return this.http.get( 
-            Constants.API_ENDPOINT + '/user-level/' + offset + "/" + limit, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/' + offset + "/" + limit, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -43,7 +43,7 @@ export class UserlevelService {
             query: query
         }
         return this.http.post( 
-            Constants.API_ENDPOINT + '/user-level/search/' + offset + "/" + limit, body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/search/' + offset + "/" + limit, body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -54,7 +54,7 @@ export class UserlevelService {
             query: query
         }
         return this.http.post( 
-            Constants.API_ENDPOINT + '/user-level/search-count', body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/search-count', body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -66,7 +66,7 @@ export class UserlevelService {
             user_level_desc: desc
         }
         return this.http.put( 
-            Constants.API_ENDPOINT + '/user-level/' + id,body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/' + id,body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -78,7 +78,7 @@ export class UserlevelService {
             user_level_desc: desc
         }
         return this.http.post( 
-            Constants.API_ENDPOINT + '/user-level/', body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/user-level/', body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }

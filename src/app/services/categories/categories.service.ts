@@ -11,28 +11,28 @@ export class CategoriesService {
 
     getCategories(categoriesId: number) {
         return this.http.get(
-            Constants.API_ENDPOINT + '/categories/' + categoriesId, this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/' + categoriesId, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
 
     count() {
         return this.http.get(
-            Constants.API_ENDPOINT + '/categories/count', this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/count', Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
 
     delete(categoriesId: number) {
         return this.http.delete(
-            Constants.API_ENDPOINT + '/categories/' + categoriesId, this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/' + categoriesId, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
 
     getAll(offset: number, limit: number) {
         return this.http.get(
-            Constants.API_ENDPOINT + '/categories/' + offset + "/" + limit, this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/' + offset + "/" + limit, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -43,7 +43,7 @@ export class CategoriesService {
             query: query
         }
         return this.http.post(
-            Constants.API_ENDPOINT + '/categories/search/' + offset + "/" + limit, body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/search/' + offset + "/" + limit, body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -54,7 +54,7 @@ export class CategoriesService {
             query: query
         }
         return this.http.post(
-            Constants.API_ENDPOINT + '/categories/search-count', body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/search-count', body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -68,7 +68,7 @@ export class CategoriesService {
             user: user.id.toString()
         }
         return this.http.put(
-            Constants.API_ENDPOINT + '/categories/' + id, body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/' + id, body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
@@ -82,21 +82,8 @@ export class CategoriesService {
             user: user.id.toString()
         }
         return this.http.post(
-            Constants.API_ENDPOINT + '/categories/', body, this.jwt()).map(
+            Constants.API_ENDPOINT + '/categories/', body, Constants.jwt()).map(
                 (response: Response) => response.json()
             );
     }
-
-
-    // private helper methods
-    private jwt() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
-
-
 }

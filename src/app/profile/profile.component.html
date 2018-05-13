@@ -1,0 +1,55 @@
+<ul class="nav nav-tabs">
+  <li [ngClass]="{'active': active === 'myarticles'}"><a data-toggle="tab" href="#myarticles">My Articles</a></li>
+  <li [ngClass]="{'active': active === 'settings'}"><a data-toggle="tab" href="#settings">Profile Setting</a></li>
+  <li [ngClass]="{'active': active === 'account'}"><a data-toggle="tab" href="#account">Account Setting</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="myarticles" [ngClass]="{ 'tab-pane fade in': user, 'active': active === 'myarticles'}">
+    <div class="p-2">
+      <div *ngFor="let item of myArticles" class="col-sm-12 contpost">
+        <div class="row">
+          <div class="col PostTitle">
+            <h5><a href="/{{item.category.name}}/{{item.sub_category.name}}/{{item.uid}}">{{item.subject}}</a></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <img class="thumbnail center" src="{{item.images.thumbnail}}" alt="No Image"/>
+          </div>
+          <div class="col-sm-9">      
+            <p>{{item.overview}}</p>
+            <p><span class="badge badge-info">{{item.category.name}}</span> <span class="glyphicon glyphicon-chevron-right"></span> <span class="badge badge-info">{{item.sub_category.name}}</span></p>
+            <p>
+              <span class="PostDate"><i class="fa fa-calendar"></i> Last Updated : {{item.updated | amFromUtc |amTimeAgo}}</span>&nbsp;
+              <a href="/editor/{{item.id}}"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;
+              <a><span class="glyphicon glyphicon-trash"></span></a>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col small p-2">
+            <p>
+              <span><i class="fa fa-user"></i> {{item.author.user_fname}}</span> 
+              | <span><i class="fa fa-comment"></i> {{item.stats.comments}} Comments</span>
+              | <span><i class="fa fa-thumbs-up"></i> {{item.stats.shares}} Likes</span>
+              | <span><i class="fa fa-eye"></i> {{item.stats.views}} Views</span>
+              | <span><i class="fa fa-share"></i> {{item.stats.shares}} Shares</span>
+              <br><br>
+              <i class="fa fa-tags"></i> Tags : 
+              <span *ngFor="let i of item.keywords"><span class="badge badge-info">{{i.keyword}}</span>&nbsp;</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="settings" [ngClass]="{ 'tab-pane fade in': user, 'active': active === 'settings'}">
+    <h3>Profile Setting</h3>
+    <p>Some content in menu 1.</p>
+  </div>
+  <div id="account" [ngClass]="{ 'tab-pane fade in': user, 'active': active === 'account'}">
+    <h3>Account Setting</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>

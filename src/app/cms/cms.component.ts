@@ -17,8 +17,8 @@ export class CmsComponent implements OnInit {
   body = "";
   keyword = "";
   image: FormData = null;
-  
-  displayImage=null;
+
+  displayImage = null;
   imageUrl = {
     upload: "",
     original: "",
@@ -29,7 +29,7 @@ export class CmsComponent implements OnInit {
   selectedCategory = null;
   selectedSubCategory = null;
   subject = "";
-  overview="";
+  overview = "";
   country = "";
   state = "";
   city = "";
@@ -52,43 +52,52 @@ export class CmsComponent implements OnInit {
     private route: ActivatedRoute,
     private categoriesService: CategoriesService,
     private subCategoriesService: SubCategoriesService) {
-
   }
   ngOnInit() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser == null) {
+      window.location.href = "/login"
+    }
     this.route.params.subscribe(params => {
-      if(params['id'] != undefined)
+      if (params['id'] != undefined) {
         this.article_id = +params['id']; // (+) converts string 'id' to a number
+      }
     });
     this.getCategoriesCount();
     this.getCountries();
-    if(this.article_id != null){
+    if (this.article_id != null) {
       this.cmsService.getArticleById(this.article_id).subscribe(
         data => {
           if (data.data != undefined) {
             let article = JSON.parse(data.data);
-            this.subject = article.subject;
-            try{
-              JSON.parse(article.keywords.replace(/\'/g,"\"")).forEach(element => {
-                this.keyword = this.keyword + " " + element.keyword
-              });
-            } catch {
-              article.keywords.forEach(element => {
-                this.keyword = this.keyword + " " + element.keyword
-              });
+            if (currentUser.id != article.author.id && currentUser.tid != Constants.ROLES.ADMIN) {
+              window.location.href = "/404"
+            } else {
+              this.subject = article.subject;
+              try {
+                JSON.parse(article.keywords.replace(/\'/g, "\"")).forEach(element => {
+                  this.keyword = this.keyword + " " + element.keyword
+                });
+              } catch {
+                article.keywords.forEach(element => {
+                  this.keyword = this.keyword + " " + element.keyword
+                });
+              }
+              this.keyword = this.keyword.trim();
+              this.overview = article.overview;
+              this.body = article.body;
+              this.selectedCategory = article.category.id;
+              this.selectedSubCategory = article.sub_category.id;
+              this.imageUrl = article.images;
+              this.displayImage = this.imageUrl.thumbnail;
+              this.country = article.country;
+              this.state = article.state;
+              this.city = article.city;
+              if (this.country.trim() != "") {
+                this.regionalFlag = true;
+              }
             }
-            this.keyword = this.keyword.trim();
-            this.body = article.body;
-            this.selectedCategory=article.category.id;
-            this.selectedSubCategory=article.sub_category.id;
-            this.imageUrl=article.images;
-            this.displayImage=this.imageUrl.thumbnail;
-            this.country = article.country;
-            this.state = article.state;
-            this.city = article.city;
-            if(this.country.trim() != ""){
-              this.regionalFlag=true;
-            }
-          }else {
+          } else {
             this.alertService.error(data.message);
           }
         },
@@ -109,7 +118,7 @@ export class CmsComponent implements OnInit {
       data => {
         if (data.data != undefined) {
           this.countriesList = JSON.parse(data.data);
-          if(this.country.trim() != "" && this.regionalFlag){
+          if (this.country.trim() != "" && this.regionalFlag) {
             this.countryChanged(0);
           }
         }
@@ -126,9 +135,9 @@ export class CmsComponent implements OnInit {
             this.categoryList.push(e);
           });
         }
-        if(this.selectedCategory == null){
+        if (this.selectedCategory == null) {
           this.selectedCategory = this.categoryList[0].id;
-        } 
+        }
         this.getSubCategories();
       }
     );
@@ -159,7 +168,7 @@ export class CmsComponent implements OnInit {
           ul.forEach(e => {
             this.subCategoryList.push(e);
           });
-          if(this.selectedSubCategory == null){
+          if (this.selectedSubCategory == null) {
             this.selectedSubCategory = this.subCategoryList[0].id;
           }
         }
@@ -179,12 +188,12 @@ export class CmsComponent implements OnInit {
         this.displayImage = e.target.result;
       }
       reader.readAsDataURL(file);
-      
+
     }
   }
 
   saveBlog() {
-    if(this.image != null){
+    if (this.image != null) {
       if (this.article_id == null) {
         this.addArticle();
       } else {
@@ -223,11 +232,11 @@ export class CmsComponent implements OnInit {
   }
 
   addArticle() {
-    this.cmsService.add(this.selectedCategory, this.selectedSubCategory, this.subject, this.overview,this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
+    this.cmsService.add(this.selectedCategory, this.selectedSubCategory, this.subject, this.overview, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
       data => {
         if (data.data != undefined) {
           this.article_id = data.data.id;
-          if(this.image != null){
+          if (this.image != null) {
             this.uploadImage(true);
           } else {
             this.alertService.success("Success: Article created successfully");
@@ -246,8 +255,8 @@ export class CmsComponent implements OnInit {
     );
   }
 
-  updateArticle(){
-    this.cmsService.update(this.article_id, this.selectedCategory, this.selectedSubCategory, this.subject,this.overview, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
+  updateArticle() {
+    this.cmsService.update(this.article_id, this.selectedCategory, this.selectedSubCategory, this.subject, this.overview, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
       data => {
         this.alertService.success("Success: Article updated successfully");
       },
@@ -271,7 +280,7 @@ export class CmsComponent implements OnInit {
   }
 
   countryChanged(flag: number) {
-    if(flag==1){
+    if (flag == 1) {
       this.state = "";
       this.city = "";
     }
@@ -283,7 +292,7 @@ export class CmsComponent implements OnInit {
       if (e.full_name == this.country.trim()) {
         this.statesList = e.states;
         document.getElementById("state").removeAttribute("disabled")
-        if(this.state.trim() != "" && this.regionalFlag){
+        if (this.state.trim() != "" && this.regionalFlag) {
           this.stateChanged()
         }
       }
