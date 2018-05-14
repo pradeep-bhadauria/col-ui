@@ -1,8 +1,8 @@
 import { Headers, RequestOptions } from '@angular/http';
 
 export class Constants {
-   //public static API_ENDPOINT='http://ws.behindstories.com';
-   public static API_ENDPOINT='http://localhost:5000';
+   public static API_ENDPOINT='http://ws.behindstories.com';
+   //public static API_ENDPOINT='http://localhost:5000';
    
    public static LOADING=false;
 
