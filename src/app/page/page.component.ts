@@ -69,17 +69,26 @@ export class PageComponent implements OnInit {
         this.pageService.getArticleByUid(uid).subscribe(
           data => {
             if(data.data != undefined){
-              this.article= JSON.parse(data.data);
-              this.article.body = this.sanitizer.bypassSecurityTrustHtml(this.article.body)
-
-              this.title.setTitle(this.article.subject);
-              console.log(this.article);
-              var keyword="";
-              this.article.keywords.forEach(element => {
-                keyword = keyword + " " + element.keyword;
-              });
-              this.meta.updateTag({name:"description",content:this.article.overview});
-              this.meta.updateTag({name: "keywords", content:keyword.trim()});
+              var temp = JSON.parse(data.data);
+              if(this.currentUser == null && temp.is_published != Constants.DEFAULT.PUBLISHED){
+                window.location.href = "/404";
+              } else if (this.currentUser != null && 
+                this.currentUser.id != temp.author.id && 
+                temp.is_published != Constants.DEFAULT.PUBLISHED && 
+                this.currentUser.tid != Constants.ROLES.ADMIN){
+                window.location.href = "/404";
+              } else {
+                this.article = temp;
+                this.article.body = this.sanitizer.bypassSecurityTrustHtml(this.article.body)
+                this.title.setTitle(this.article.subject);
+                console.log(this.article);
+                var keyword="";
+                this.article.keywords.forEach(element => {
+                  keyword = keyword + " " + element.keyword;
+                });
+                this.meta.updateTag({name:"description",content:this.article.overview});
+                this.meta.updateTag({name: "keywords", content:keyword.trim()});
+              }
             } else {
               window.location.href = "/404"
             }
@@ -91,7 +100,4 @@ export class PageComponent implements OnInit {
       }
     });
   }
-
-
-
 }

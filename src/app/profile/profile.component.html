@@ -9,7 +9,7 @@
       <div *ngFor="let item of myArticles" class="col-sm-12 contpost">
         <div class="row">
           <div class="col PostTitle">
-            <h5><a href="/{{item.category.name}}/{{item.sub_category.name}}/{{item.uid}}">{{item.subject}}</a></h5>
+            <h5><a href="/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}">{{item.subject}}</a></h5>
           </div>
         </div>
         <div class="row">
