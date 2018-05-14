@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Constants, AlertService } from './../utils/index';
 import { PageService } from './../services/index';
 import { ActivatedRoute, Router } from '@angular/router';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-page',
@@ -24,7 +24,10 @@ export class PageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private pageService: PageService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private title: Title,
+    private meta: Meta
+  ) { }
 
   ngOnInit() {
     console.log = function() {}
@@ -68,6 +71,15 @@ export class PageComponent implements OnInit {
             if(data.data != undefined){
               this.article= JSON.parse(data.data);
               this.article.body = this.sanitizer.bypassSecurityTrustHtml(this.article.body)
+
+              this.title.setTitle(this.article.subject);
+              console.log(this.article);
+              var keyword="";
+              this.article.keywords.forEach(element => {
+                keyword = keyword + " " + element.keyword;
+              });
+              this.meta.updateTag({name:"description",content:this.article.overview});
+              this.meta.updateTag({name: "keywords", content:keyword.trim()});
             } else {
               window.location.href = "/404"
             }

@@ -7,6 +7,8 @@ import { HttpModule } from '@angular/http';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MomentModule } from 'angular2-moment';
+import {FacebookModule} from 'ngx-facebook';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -76,7 +78,8 @@ const routes: Routes = [
     FormsModule,
     AppRoutingModule,
     EditorModule,
-    MomentModule
+    MomentModule,
+    FacebookModule.forRoot()
   ],
   providers: [
     UserlevelService,UserService, CategoriesService, SubCategoriesService, CMSService,ProfileService,PageService,
