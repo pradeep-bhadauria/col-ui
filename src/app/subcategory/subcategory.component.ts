@@ -31,13 +31,15 @@ export class SubcategoryComponent implements OnInit {
     this.loading = true;
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if(currentUser == null){
+      localStorage.removeItem("currentUser");
       window.location.href = "/login";
-    } else if (currentUser.id != Constants.ROLES.ADMIN){
+    } else if (currentUser.tid != Constants.ROLES.ADMIN){
       window.location.href = "/?redirect=RestrictedAccess"
+    } else {
+      this.getCategoriesCount();
+      this.getCount();
+      this.getAll(this.offset, this.pageLimit);
     }
-    this.getCategoriesCount();
-    this.getCount();
-    this.getAll(this.offset, this.pageLimit);
   }
 
   getCategories(c:number){

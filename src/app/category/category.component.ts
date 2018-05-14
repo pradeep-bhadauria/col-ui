@@ -29,13 +29,15 @@ export class CategoryComponent implements OnInit {
   ) {
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if(currentUser == null){
+      localStorage.removeItem("currentUser");
       window.location.href = "/login";
-    } else if (currentUser.id != Constants.ROLES.ADMIN){
+    } else if (currentUser.tid != Constants.ROLES.ADMIN){
       window.location.href = "/?redirect=RestrictedAccess"
+    } else {
+      this.loading = true;
+      this.getCount();
+      this.getAll(this.offset, this.pageLimit);
     }
-    this.loading = true;
-    this.getCount();
-    this.getAll(this.offset, this.pageLimit);
   }
 
   getAll(offset: number,limit: number) {
