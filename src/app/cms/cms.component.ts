@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CMSService, CategoriesService, SubCategoriesService } from './../services/index';
+import { CMSService, CategoriesService, SubCategoriesService,  } from './../services/index';
 import { Constants, AlertService } from './../utils/index';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,7 +13,7 @@ export class CmsComponent implements OnInit {
   statesList = null;
   citiesList = null;
   article_id = null;
-
+  is_published = null;
   body = "";
   keyword = "";
   image: FormData = null;
@@ -70,6 +70,7 @@ export class CmsComponent implements OnInit {
         data => {
           if (data.data != undefined) {
             let article = JSON.parse(data.data);
+            this.is_published = article.is_published;
             if (currentUser.id != article.author.id && currentUser.tid != Constants.ROLES.ADMIN) {
               window.location.href = "/404"
             } else {
@@ -145,6 +146,8 @@ export class CmsComponent implements OnInit {
 
   categoryChanged(cid) {
     this.selectedCategory = cid;
+    this.selectedSubCategory = null;
+    this.subCategoryList = new Array();
     this.getSubCategories();
   }
 
@@ -193,6 +196,7 @@ export class CmsComponent implements OnInit {
   }
 
   saveBlog() {
+    document.getElementById("save").setAttribute("disabled","disabled");
     if (this.image != null) {
       if (this.article_id == null) {
         this.addArticle();
@@ -218,9 +222,11 @@ export class CmsComponent implements OnInit {
       error => {
         try {
           this.alertService.error(JSON.parse(error._body).message);
+          document.getElementById("save").removeAttribute("disabled");
         }
         catch {
           this.alertService.error("Server Error: Please try after some time.");
+          document.getElementById("save").removeAttribute("disabled");
         }
       }
     );
@@ -235,6 +241,7 @@ export class CmsComponent implements OnInit {
             this.uploadImage(true);
           } else {
             this.alertService.success("Success: Article created successfully");
+            this.callPreview();
           }
 
         }
@@ -242,9 +249,11 @@ export class CmsComponent implements OnInit {
       error => {
         try {
           this.alertService.error(JSON.parse(error._body).message);
+          document.getElementById("save").removeAttribute("disabled");
         }
         catch {
           this.alertService.error("Server Error: Please try after some time.");
+          document.getElementById("save").removeAttribute("disabled");
         }
       }
     );
@@ -258,13 +267,16 @@ export class CmsComponent implements OnInit {
         } else {
           this.alertService.success("Success: Article updated successfully");
         }
+        this.callPreview();
       },
       error => {
         try {
           this.alertService.error(JSON.parse(error._body).message);
+          document.getElementById("save").removeAttribute("disabled");
         }
         catch {
           this.alertService.error("Server Error: Please try after some time.");
+          document.getElementById("save").removeAttribute("disabled");
         }
       }
     );
@@ -309,5 +321,50 @@ export class CmsComponent implements OnInit {
         });
       }
     });
+  }
+
+  callPreview(){
+    setTimeout(this.preview(),3000);
+  }
+  preview(){
+    this.cmsService.getArticleById(this.article_id).subscribe(
+      data=>{
+        var article = JSON.parse(data.data);
+        var uid = article.uid;
+        var cat = article.category.name.trim().toLowerCase();
+        var sub_cat = article.sub_category.name.trim().toLowerCase();
+        window.location.href = "/"+cat+"/"+sub_cat+"/"+uid
+      },
+      error=>{
+        this.alertService.error("Server Error: Error redirecting to preview. Please go to 'Profile > My Articles' for link.");
+      }
+    );
+  }
+
+  cancel(){
+    if(confirm("Warning! Are you sure to cancel any changes made will be lost permanently.")){
+      window.location.href="/";
+    }
+  }
+  publish(){
+    if(this.is_published == 0)
+      this.is_published=1;
+    else 
+      this.is_published=0;
+    this.cmsService.publish(this.article_id,this.is_published).subscribe(
+      data=>{
+        if(this.is_published == 1) {
+          this.alertService.success("Success: Article published successfully");
+          this.callPreview();
+        }
+        else {
+          this.alertService.success("Success: Article unpublished successfully");
+        }
+    },
+      error=>{
+        this.alertService.error("Sorry: We encountered some error. Please try after sometime.");
+      }
+    );
+    
   }
 }

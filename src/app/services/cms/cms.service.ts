@@ -82,4 +82,15 @@ export class CMSService {
         (response: Response) => response.json()
       );
   }
+
+  publish(article_id:number, is_published:number){
+    let body = undefined;
+    body = {
+      is_published: is_published
+    }
+    return this.http.put(
+      Constants.API_ENDPOINT + '/articles/' + article_id + "/publish", body, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
 }

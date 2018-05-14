@@ -27,6 +27,7 @@ export class PageComponent implements OnInit {
     private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    console.log = function() {}
     this.route.params.subscribe(params => {
       if (params['category'] != undefined) {
         this.category = params['category'];
@@ -67,7 +68,6 @@ export class PageComponent implements OnInit {
             if(data.data != undefined){
               this.article= JSON.parse(data.data);
               this.article.body = this.sanitizer.bypassSecurityTrustHtml(this.article.body)
-              console.log(this.article);
             } else {
               window.location.href = "/404"
             }
