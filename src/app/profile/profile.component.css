@@ -2,6 +2,9 @@
     background: transparent;
     border-bottom: 1px solid #8f8f8f !important;
 }
+.nav-tabs>li {
+    float: left;
+}
 .nav-tabs > li > a {
     color : #8f8f8f;
 }
@@ -23,4 +26,7 @@ p{font-size: 12px;}
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+.panel-body{
+    padding: 10px 50px;
 }

@@ -1,7 +1,6 @@
 <ul class="nav nav-tabs">
-  <li [ngClass]="{'active': active === 'myarticles'}"><a data-toggle="tab" href="#myarticles">My Articles</a></li>
-  <li [ngClass]="{'active': active === 'settings'}"><a data-toggle="tab" href="#settings">Profile Setting</a></li>
-  <li [ngClass]="{'active': active === 'account'}"><a data-toggle="tab" href="#account">Account Setting</a></li>
+  <li [ngClass]="{'active': active === 'myarticles'}"><a data-toggle="tab" href="#myarticles"><span class="glyphicon glyphicon-edit"></span> My Articles</a></li>
+  <li [ngClass]="{'active': active === 'settings'}"><a data-toggle="tab" href="#settings"><span class="glyphicon glyphicon-cog"></span> Profile Setting</a></li>
 </ul>
 
 <div class="tab-content">
@@ -14,10 +13,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-3">
+          <div class="col-sm-3 col-xs-4">
             <img class="thumbnail center" src="{{item.images.thumbnail}}" alt="No Image"/>
           </div>
-          <div class="col-xs-9">      
+          <div class="col-sm-9 col-xs-8">      
             <p>{{item.overview}}</p>
             <p><span class="badge badge-info">{{item.category.name}}</span> <span class="glyphicon glyphicon-chevron-right"></span> <span class="badge badge-info">{{item.sub_category.name}}</span></p>
             <p>
@@ -27,7 +26,7 @@
             </p>
           </div>
         </div>
-        <div class="row">
+        <div class="row hidden-sm hidden-xs">
           <div class="col small p-2">
             <p>
               <span><i class="fa fa-user"></i> {{item.author.user_fname}}</span> 
@@ -45,11 +44,110 @@
     </div>
   </div>
   <div id="settings" [ngClass]="{ 'tab-pane fade in': user, 'active': active === 'settings'}">
-    <h3>Profile Setting</h3>
-    <p>Some content in menu 1.</p>
-  </div>
-  <div id="account" [ngClass]="{ 'tab-pane fade in': user, 'active': active === 'account'}">
-    <h3>Account Setting</h3>
-    <p>Some content in menu 2.</p>
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span class="glyphicon glyphicon-edit"></span> Name</a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                  <label for="fname" class="cols-sm-2 control-label">First Name</label><span class="error">{{fname_err}}</span>
+                  <div class="cols-sm-10">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user fa" aria-hidden="true"></i>
+                          </span>
+                          <input type="text" class="form-control" name="fname" id="fname" [(ngModel)]="fname" placeholder="First Name" />
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="lname" class="cols-sm-2 control-label">Last Name</label><span class="error">{{lname_err}}</span>
+                  <div class="cols-sm-10">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user fa" aria-hidden="true"></i>
+                          </span>
+                          <input type="text" class="form-control" name="lname" id="lname" [(ngModel)]="lname" placeholder="Last Name" />
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group ">
+                <button (click)="changeName()" id="register" type="button" class="btn btn-primary btn-block login-button">Change Name</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><span class="glyphicon glyphicon-edit"></span> Email</a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Email</label><span class="error">{{email_err}}</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope fa" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" class="form-control" name="email" id="email" [(ngModel)]="email" placeholder="Enter your Email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                  <button (click)="changeEmail()" id="register" type="button" class="btn btn-primary btn-block login-button">Email</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><span class="glyphicon glyphicon-edit"></span> Change Password</a>
+          </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+          <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Password</label><span class="error">{{password_err}}</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
+                            </span>
+                            <input type="password" class="form-control" name="password" id="password" [(ngModel)]="password" placeholder="Enter your Password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label><span class="error">{{confirm_err}}</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
+                            </span>
+                            <input type="password" class="form-control" name="confirm" id="confirm" [(ngModel)]="confirm" placeholder="Confirm your Password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                  <button (click)="changePassword()" id="register" type="button" class="btn btn-primary btn-block login-button">Change Password</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div> 
   </div>
 </div>
