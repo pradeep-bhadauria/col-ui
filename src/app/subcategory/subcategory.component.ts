@@ -11,7 +11,7 @@ import { SubCategories, Categories } from './../models/index';
 export class SubcategoryComponent implements OnInit {
   ngOnInit() {
   }
-    
+  accessAllowed=false;
   query="";
   loading = true;
   rowCount=0;
@@ -36,6 +36,7 @@ export class SubcategoryComponent implements OnInit {
     } else if (currentUser.tid != Constants.ROLES.ADMIN){
       window.location.href = "/?redirect=RestrictedAccess"
     } else {
+      this.accessAllowed=true;
       this.getCategoriesCount();
       this.getCount();
       this.getAll(this.offset, this.pageLimit);

@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
   ngOnInit() {}
-  
+  accessAllowed=false;
   query="";
   loading = true;
   rowCount=0;
@@ -34,6 +34,7 @@ export class CategoryComponent implements OnInit {
     } else if (currentUser.tid != Constants.ROLES.ADMIN){
       window.location.href = "/?redirect=RestrictedAccess"
     } else {
+      this.accessAllowed=true;
       this.loading = true;
       this.getCount();
       this.getAll(this.offset, this.pageLimit);
