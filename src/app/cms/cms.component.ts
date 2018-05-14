@@ -202,7 +202,7 @@ export class CmsComponent implements OnInit {
     } else if (this.article_id == null) {
       this.addArticle();
     } else {
-      this.updateArticle();
+      this.updateArticle(false);
     }
   }
 
@@ -213,12 +213,7 @@ export class CmsComponent implements OnInit {
         this.imageUrl.original = data.images.secure_url;
         this.imageUrl.banner = data.images.eager[0].secure_url;
         this.imageUrl.thumbnail = data.images.eager[1].secure_url;
-        if (flag) {
-          this.alertService.success("Success: Article created successfully");
-        } else {
-          this.updateArticle();
-          this.alertService.success("Success: Article updated successfully");
-        }
+        this.updateArticle(flag);
       },
       error => {
         try {
@@ -255,10 +250,14 @@ export class CmsComponent implements OnInit {
     );
   }
 
-  updateArticle() {
+  updateArticle(flag: boolean) {
     this.cmsService.update(this.article_id, this.selectedCategory, this.selectedSubCategory, this.subject, this.overview, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
       data => {
-        this.alertService.success("Success: Article updated successfully");
+        if (flag) {
+          this.alertService.success("Success: Article created successfully");
+        } else {
+          this.alertService.success("Success: Article updated successfully");
+        }
       },
       error => {
         try {

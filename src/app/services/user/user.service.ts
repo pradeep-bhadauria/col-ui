@@ -36,6 +36,28 @@ export class UserService {
       );
   }
 
+  updatePassword(user_id: string, password: string){
+    let body = undefined;
+    body = {
+      user_password: password
+    }
+    return this.http.put(
+      Constants.API_ENDPOINT + '/users/'+ user_id +'/password', body, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
+  sendChangePasswordLink(email: String) {
+    let body = undefined;
+    body = {
+      email: email
+    }
+    return this.http.post(
+      Constants.API_ENDPOINT + '/auth/change-password-link', body, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
   sendConfirmationEmail(email: String) {
     let body = undefined;
     body = {
@@ -55,6 +77,18 @@ export class UserService {
     }
     return this.http.put(
       Constants.API_ENDPOINT + '/auth/confirm-email', body, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
+  confirmChangePassword(email: String, token: String) {
+    let body = undefined;
+    body = {
+      email: email,
+      token: token
+    }
+    return this.http.post(
+      Constants.API_ENDPOINT + '/auth/change-password-link-verify', body, Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }

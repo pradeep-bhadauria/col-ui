@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-header, footer{margin: 0px !important;}
+header, footers{margin: 0px !important;}
+section{margin: 0px; padding: 0px !important;}
+section#contentSection{padding: 10px !important;}
+
 .logo {height: 49px;width: 235px;margin-top:3px;}
 .alert {
     z-index: 100;
@@ -22,7 +25,7 @@ input {
     border: 1px solid #dbdbdb !important;
 	border-radius: 0px 4px 4px 0px !important;
 }
-div#mceu_36 {
+#mceu_38, #mceu_37 {
     display: none !important;
 }
 
@@ -30,5 +33,4 @@ div#mceu_36 {
     border: 1px #efefef !important;
     border-radius: 5px 0px 0px 5px!important;
 }
-#mceu_35{display: none;}
 
