@@ -39,7 +39,7 @@ export class PageService {
 
   getPublishedArticleByCategoryCount(cat_id: number) {
     return this.http.get(
-      Constants.API_ENDPOINT + '/articles/search/' + cat_id, Constants.jwt()).map(
+      Constants.API_ENDPOINT + '/articles/search/' + cat_id + "/count", Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
@@ -53,7 +53,7 @@ export class PageService {
 
   getPublishedArticleBySubCategoryCount(cat_id: number,sub_cat_id: number) {
     return this.http.get(
-      Constants.API_ENDPOINT + '/articles/search/' + cat_id + "/" + sub_cat_id, Constants.jwt()).map(
+      Constants.API_ENDPOINT + '/articles/search/' + cat_id + "/" + sub_cat_id + "/count", Constants.jwt()).map(
         (response: Response) => response.json()
       );
   }
