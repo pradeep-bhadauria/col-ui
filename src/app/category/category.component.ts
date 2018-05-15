@@ -214,7 +214,7 @@ export class CategoryComponent implements OnInit {
             var ul = JSON.parse(data.data);
             this.alertService.success(data.message);
           } else {
-            this.alertService.error(data.message);
+            this.alertService.success(data.message);
           }
           this.loading = false;
           this.isEditing=false;

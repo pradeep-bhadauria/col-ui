@@ -30,7 +30,6 @@ export class PageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log = function() {}
     this.route.params.subscribe(params => {
       if (params['category'] != undefined) {
         this.category = params['category'];
@@ -40,7 +39,7 @@ export class PageComponent implements OnInit {
               var cat = JSON.parse(data.data)
               this.cat_id = cat.id
             } else {
-              window.location.href = "/404"
+              //window.location.href = "/404"
             }
           },
           error => {

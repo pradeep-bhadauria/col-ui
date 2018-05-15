@@ -191,7 +191,7 @@ export class SubcategoryComponent implements OnInit {
           this.alertService.error(JSON.parse(error._body).message);
         }
         catch {  
-          this.alertService.error("Error: Pls check the values. Name must be unique.");
+          this.alertService.error("Error: Pls check the values. Note: Name must be unique in specified category.");
         }
       }
     );

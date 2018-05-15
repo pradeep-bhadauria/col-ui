@@ -241,7 +241,7 @@ export class CmsComponent implements OnInit {
             this.uploadImage(true);
           } else {
             this.alertService.success("Success: Article created successfully");
-            this.callPreview();
+            //this.callPreview();
           }
 
         }
@@ -267,7 +267,7 @@ export class CmsComponent implements OnInit {
         } else {
           this.alertService.success("Success: Article updated successfully");
         }
-        this.callPreview();
+        //this.callPreview();
       },
       error => {
         try {
@@ -333,7 +333,7 @@ export class CmsComponent implements OnInit {
         var uid = article.uid;
         var cat = article.category.name.trim().toLowerCase();
         var sub_cat = article.sub_category.name.trim().toLowerCase();
-        window.location.href = "/"+cat+"/"+sub_cat+"/"+uid
+        window.location.href = "/articles/"+cat+"/"+sub_cat+"/"+uid
       },
       error=>{
         this.alertService.error("Server Error: Error redirecting to preview. Please go to 'Profile > My Articles' for link.");
@@ -354,11 +354,11 @@ export class CmsComponent implements OnInit {
     this.cmsService.publish(this.article_id,this.is_published).subscribe(
       data=>{
         if(this.is_published == 1) {
-          this.alertService.success("Success: Article published successfully");
+          this.alertService.success("Success: Article published successfully.");
           this.callPreview();
         }
         else {
-          this.alertService.success("Success: Article unpublished successfully");
+          this.alertService.success("Success: Article unpublished successfully.");
         }
     },
       error=>{

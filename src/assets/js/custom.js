@@ -51,7 +51,13 @@ jQuery(document).ready(function() {
         return false;
     });
     $('.tootlip').tooltip();
-    $("ul#ticker01").liScroll();
+    var tickerCheck = setInterval(function(){
+        if($("ul#ticker01 li").length > 0){
+            $("#newsSection").css("display","inline");
+            $("ul#ticker01").liScroll();
+            clearInterval(tickerCheck);
+        }
+    },1000);
 });
 
 wow = new WOW({

@@ -30,4 +30,32 @@ export class PageService {
       );
   }
 
+  getPublishedArticleByCategory(cat_id: number, offset: number, limit: number) {
+    return this.http.get(
+      Constants.API_ENDPOINT + '/articles/search/' + cat_id + "/" + offset + "/" + limit, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
+  getPublishedArticleByCategoryCount(cat_id: number) {
+    return this.http.get(
+      Constants.API_ENDPOINT + '/articles/search/' + cat_id, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
+  getPublishedArticleBySubCategory(cat_id: number,sub_cat_id: number, offset: number, limit: number) {
+    return this.http.get(
+      Constants.API_ENDPOINT + '/articles/search/' + cat_id + "/" + sub_cat_id + "/" + offset + "/" + limit, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
+  getPublishedArticleBySubCategoryCount(cat_id: number,sub_cat_id: number) {
+    return this.http.get(
+      Constants.API_ENDPOINT + '/articles/search/' + cat_id + "/" + sub_cat_id, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
 }

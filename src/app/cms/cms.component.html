@@ -78,8 +78,9 @@
             </div>
         <div class="form-group col-md-12">
             <ul class="list-inline  pull-right">
-                <li><a (click)="saveBlog()" id="save" class="btn btn-primary btn-sm">Save & Preview</a></li>
+                <li><a (click)="saveBlog()" id="save" class="btn btn-primary btn-sm">Save</a></li>
                 <li><a (click)="cancel()" class="btn btn-default btn-sm">Cancel</a></li>
+                <li  *ngIf="article_id!=null"><a (click)="callPreview()" class="btn btn-success btn-sm">Preview</a></li>
                 <li *ngIf="article_id!=null">
                     <a (click)="publish()" class="btn btn-success btn-sm">
                         <span *ngIf="is_published==0">Publish</span>
