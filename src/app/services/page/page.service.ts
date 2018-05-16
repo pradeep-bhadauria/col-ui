@@ -58,4 +58,11 @@ export class PageService {
       );
   }
 
+  deleteArticle(article_id: number) {
+    return this.http.delete(
+      Constants.API_ENDPOINT + '/articles/' + article_id, Constants.jwt()).map(
+        (response: Response) => response.json()
+      );
+  }
+
 }

@@ -13,7 +13,7 @@ export class CmsComponent implements OnInit {
   statesList = null;
   citiesList = null;
   article_id = null;
-  is_published = null;
+  is_published = 0;
   body = "";
   keyword = "";
   image: FormData = null;

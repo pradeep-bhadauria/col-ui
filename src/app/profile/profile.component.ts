@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService, UserService } from './../services/index';
+import { ProfileService, UserService, PageService } from './../services/index';
 import { Constants, AlertService } from './../utils/index';
 import { ActivatedRoute } from '@angular/router';
 
@@ -32,7 +32,8 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     public alertService: AlertService,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private pageService: PageService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if(this.user == null){
@@ -129,7 +130,17 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteArticle(article_id:number){
-    alert(article_id);
+    if(confirm("Warning! Are you sure you want to delete? You will lose all content!.")){
+      this.pageService.deleteArticle(article_id).subscribe(
+        data=>{
+          this.alertService.success("Article deleted successfully");
+          document.getElementById("article_"+article_id).remove();
+        },
+        error=>{
+          this.alertService.error("Error: We are unable to delete this article now. Please try after sometime.");
+        }
+      );
+    }
   }
 
   validate(name: string){
