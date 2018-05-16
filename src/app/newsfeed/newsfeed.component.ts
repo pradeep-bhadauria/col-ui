@@ -9,7 +9,8 @@ import { Constants, AlertService } from './../utils/index';
 })
 export class NewsfeedComponent implements OnInit {
   catMap = new Map<string, number>();
-  sliderShow = "no";
+  sliderCounter=0;
+  sliderShow = 0;
   slider = new Array();
 
   newsFirst = null;
@@ -67,8 +68,10 @@ export class NewsfeedComponent implements OnInit {
             this.newsRest.push(e);
             this.slider.push(e);
           });
-        } catch {
-
+        } catch {}
+        finally{
+          this.sliderCounter = this.sliderCounter + 1
+          this.setSlider();
         }
       }
     );
@@ -85,8 +88,10 @@ export class NewsfeedComponent implements OnInit {
             this.lifestyleRest.push(e);
             this.slider.push(e);
           });
-        } catch {
-
+        } catch {}
+        finally{
+          this.sliderCounter = this.sliderCounter + 1
+          this.setSlider();
         }
       }
     );
@@ -104,8 +109,10 @@ export class NewsfeedComponent implements OnInit {
             this.technologyRest.push(e);
             this.slider.push(e);
           });
-        } catch {
-
+        } catch {}
+        finally{
+          this.sliderCounter = this.sliderCounter + 1
+          this.setSlider();
         }
       }
     );
@@ -121,8 +128,10 @@ export class NewsfeedComponent implements OnInit {
             this.entertainmentRest.push(e);
             this.slider.push(e);
           });
-        } catch {
-
+        } catch {}
+        finally{
+          this.sliderCounter = this.sliderCounter + 1
+          this.setSlider();
         }
       }
     );
@@ -138,8 +147,10 @@ export class NewsfeedComponent implements OnInit {
             this.sportsRest.push(e);
             this.slider.push(e);
           });
-        } catch {
-
+        } catch {}
+        finally{
+          this.sliderCounter = this.sliderCounter + 1
+          this.setSlider();
         }
       }
     );
@@ -155,8 +166,10 @@ export class NewsfeedComponent implements OnInit {
             this.businessRest.push(e);
             this.slider.push(e);
           });
-        } catch {
-
+        } catch {}
+        finally{
+          this.sliderCounter = this.sliderCounter + 1
+          this.setSlider();
         }
       }
     );
@@ -175,12 +188,16 @@ export class NewsfeedComponent implements OnInit {
         }
         catch{}
         finally{
-          setTimeout(this.showSlider(),10000);
+          this.sliderCounter = this.sliderCounter + 1
+          this.setSlider();
         }
       }
     );
   }
-  showSlider(){
-    this.sliderShow = "yes";
+  
+  setSlider(){
+    if(this.sliderCounter==7){
+      this.sliderShow = this.slider.length;
+    }
   }
 }

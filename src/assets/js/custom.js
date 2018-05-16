@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
     },1000);
 
     var sliderChecker = setInterval(function(){
-        if($("#slidershow").val() == "yes"){
+        if($("#slidershow").val() != 0){
             $(".slick_slider").css("display","block");
             $('.slick_slider').slick({
                 dots: true,
@@ -63,8 +63,7 @@ jQuery(document).ready(function() {
                 cssEase: 'linear'
             });
         }
-        console.log($("#slidershow").val());
-    },1000);
+    },3000);
 });
 
 wow = new WOW({
