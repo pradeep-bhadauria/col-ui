@@ -58,7 +58,7 @@ export class NewsfeedComponent implements OnInit {
       data=>{
         var o = JSON.parse(data.data);
         this.newsFirst = o[0];
-        //o.pop(0);
+        o.splice(0,1);
         o.forEach(e => {
          this.newsRest.push(e); 
         });
@@ -70,7 +70,7 @@ export class NewsfeedComponent implements OnInit {
       data=>{
         var o = JSON.parse(data.data);
         this.lifestyleFirst = o[0];
-        //o.pop(0);
+        o.splice(0,1);
         o.forEach(e => {
          this.lifestyleRest.push(e); 
         });
@@ -83,7 +83,7 @@ export class NewsfeedComponent implements OnInit {
       data=>{
         var o = JSON.parse(data.data);
         this.technologyFirst = o[0];
-        //o.pop(0);
+        o.splice(0,1);
         o.forEach(e => {
          this.technologyRest.push(e); 
         });
@@ -94,7 +94,7 @@ export class NewsfeedComponent implements OnInit {
       data=>{
         var o = JSON.parse(data.data);
         this.entertainmentFirst = o[0];
-        //o.pop(0);
+        o.splice(0,1);
         o.forEach(e => {
          this.entertainmentRest.push(e); 
         });
@@ -105,7 +105,7 @@ export class NewsfeedComponent implements OnInit {
       data=>{
         var o = JSON.parse(data.data);
         this.sportsFirst = o[0];
-        //o.pop(0);
+        o.splice(0,1);
         o.forEach(e => {
          this.sportsRest.push(e); 
         });
@@ -116,7 +116,7 @@ export class NewsfeedComponent implements OnInit {
       data=>{
         var o = JSON.parse(data.data);
         this.businessFirst = o[0];
-        //o.pop(0);
+        o.splice(0,1);
         o.forEach(e => {
          this.businessRest.push(e); 
         });
@@ -127,7 +127,7 @@ export class NewsfeedComponent implements OnInit {
       data=>{
         var o = JSON.parse(data.data);
         this.humourFirst = o[0];
-        //o.pop(0);
+        o.splice(0,1);
         o.forEach(e => {
          this.humourRest.push(e); 
         });
