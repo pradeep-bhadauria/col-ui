@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent  implements OnInit {
   showMenu=false;
+  admin = false;
+  author=false;
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   menuMap = new Map<string, string[]>();
   catMap = new Map<string, number>();
@@ -27,7 +29,12 @@ export class AppComponent  implements OnInit {
     if (this.currentUser == null){
         this.showMenu = false;
     } else {
-        this.showMenu = true;
+      if(this.currentUser.tid == Constants.ROLES.ADMIN){
+        this.admin = true;
+      } else if(this.currentUser.tid == Constants.ROLES.AUTHORS){
+        this.author=true;
+      }
+      this.showMenu = true;
     }
     this.route.queryParams.subscribe(params => {
       var redirect = params['redirect'];

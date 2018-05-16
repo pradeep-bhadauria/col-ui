@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { Constants, AlertService } from './../utils/index';
 import { UserService } from './../services/index';
+import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comfirmemail',
@@ -11,11 +12,17 @@ import { UserService } from './../services/index';
 export class ComfirmemailComponent implements OnInit {
   loading=false;
   email_err = "";
-  constructor(private activatedRoute: ActivatedRoute,private userService: UserService, private alertService: AlertService) { 
+  constructor(private activatedRoute: ActivatedRoute,private userService: UserService, 
+    private alertService: AlertService,
+    private meta: Meta,
+    private title: Title) { 
     
   }
 
   ngOnInit() {
+    this.meta.updateTag({"robots":"noindex, nofollow"});
+    this.title.setTitle("Behind Stories - Confirm Email");
+
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       let email = params['email'];
       let token = params['token'];

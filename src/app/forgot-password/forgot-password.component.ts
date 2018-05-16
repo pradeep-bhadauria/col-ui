@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { Constants, AlertService } from './../utils/index';
 import { UserService } from './../services/index';
+import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,7 +11,9 @@ import { UserService } from './../services/index';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute,private userService: UserService, private alertService: AlertService) { }
+  constructor(private activatedRoute: ActivatedRoute,private userService: UserService, private alertService: AlertService,
+    private meta: Meta,
+    private title: Title) { }
   loading=false;
   email_err="";
   display=false;
@@ -18,6 +21,9 @@ export class ForgotPasswordComponent implements OnInit {
   confirm_err="";
   user_id = null;
   ngOnInit() {
+    this.meta.updateTag({"robots":"noindex, nofollow"});
+    this.title.setTitle("Behind Stories - Forgot Password");
+
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       let email = params['email'];
       let token = params['token'];

@@ -101,6 +101,7 @@ export class PageComponent implements OnInit {
     this.pageService.getPublishedArticleByCategory(this.cat_id, this.offset, this.limit).subscribe(
       data => {
         try{
+          this.title.setTitle("Behind Stories: " + this.category);
           var cat = JSON.parse(data.data);
           this.getCategoryCount();
           var html = this.makeContent(cat);
@@ -119,6 +120,7 @@ export class PageComponent implements OnInit {
       data => {
         try{
           var sub_cat = JSON.parse(data.data);
+          this.title.setTitle("Behind Stories: " + this.category + " - " + this.subcategory);
           this.getSubCategoryCount();
           this.getCategoryCount();
           var html = this.makeContent(sub_cat);

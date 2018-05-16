@@ -63,6 +63,9 @@
                 <li *ngIf="showMenu" class="hidden-lg hidden-md dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{currentUser.fname}}</a>
                     <ul class="dropdown-menu" role="menu">
+                        <li *ngIf="admin==true"><a href="/user-level">Manage User Level</a></li>
+                        <li *ngIf="admin==true"><a href="/category">Manage Categories</a></li>
+                        <li *ngIf="admin==true"><a href="/subcategory">Manage Sub Categories</a></li>
                         <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
                         <li><a href="/editor"><span class="glyphicon glyphicon-edit"></span> Write Article</a></li>
                         <li (click)="logout()">
@@ -87,8 +90,11 @@
                 <li *ngIf="showMenu" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{currentUser.fname}}</a>
                     <ul class="dropdown-menu" role="menu">
+                        <li *ngIf="admin==true"><a href="/user-level">Manage User Level</a></li>
+                        <li *ngIf="admin==true"><a href="/category">Manage Categories</a></li>
+                        <li *ngIf="admin==true"><a href="/subcategory">Manage Sub Categories</a></li>   
                         <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                        <li><a href="/editor"><span class="glyphicon glyphicon-edit"></span> Write Article</a></li>
+                        <li *ngIf="admin==true || author==true"><a href="/editor"><span class="glyphicon glyphicon-edit"></span> Write Article</a></li>
                         <li (click)="logout()">
                             <a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </li>

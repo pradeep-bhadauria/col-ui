@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CMSService, CategoriesService, SubCategoriesService,  } from './../services/index';
+import { CMSService, CategoriesService, SubCategoriesService, } from './../services/index';
 import { Constants, AlertService } from './../utils/index';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cms',
@@ -9,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cms.component.css']
 })
 export class CmsComponent implements OnInit {
+
   countriesList = null;
   statesList = null;
   citiesList = null;
@@ -46,71 +48,87 @@ export class CmsComponent implements OnInit {
     comments: 0
   }
 
+  subject_err="";
+  overview_err="";
+  banner_err="";
+  keywords_err="";
+  body_err="";
+
   constructor(
     private cmsService: CMSService,
     public alertService: AlertService,
     private route: ActivatedRoute,
     private categoriesService: CategoriesService,
-    private subCategoriesService: SubCategoriesService) {
+    private subCategoriesService: SubCategoriesService,
+    private title: Title,
+    private meta: Meta) {
   }
   ngOnInit() {
+    this.meta.updateTag({ "robots": "noindex, nofollow" });
+    this.title.setTitle("Behind Stories - Editor");
+
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser == null) {
       window.location.href = "/login"
-    }
-    this.route.params.subscribe(params => {
-      if (params['id'] != undefined) {
-        this.article_id = +params['id']; // (+) converts string 'id' to a number
-      }
-    });
-    this.getCategoriesCount();
-    this.getCountries();
-    if (this.article_id != null) {
-      this.cmsService.getArticleById(this.article_id).subscribe(
-        data => {
-          if (data.data != undefined) {
-            let article = JSON.parse(data.data);
-            this.is_published = article.is_published;
-            if (currentUser.id != article.author.id && currentUser.tid != Constants.ROLES.ADMIN) {
-              window.location.href = "/404"
-            } else {
-              this.subject = article.subject;
-              try {
-                JSON.parse(article.keywords.replace(/\'/g, "\"")).forEach(element => {
-                  this.keyword = this.keyword + " " + element.keyword
-                });
-              } catch {
-                article.keywords.forEach(element => {
-                  this.keyword = this.keyword + " " + element.keyword
-                });
-              }
-              this.keyword = this.keyword.trim();
-              this.overview = article.overview;
-              this.body = article.body;
-              this.selectedCategory = article.category.id;
-              this.selectedSubCategory = article.sub_category.id;
-              this.imageUrl = article.images;
-              this.displayImage = this.imageUrl.thumbnail;
-              this.country = article.country;
-              this.state = article.state;
-              this.city = article.city;
-              if (this.country.trim() != "") {
-                this.regionalFlag = true;
-              }
-            }
-          } else {
-            this.alertService.error(data.message);
-          }
-        },
-        error => {
-          try {
-            this.alertService.error(JSON.parse(error._body).message);
-          }
-          catch {
-            this.alertService.error("Server Error: Please try after some time.");
-          }
+    } else if (currentUser.tid == Constants.ROLES.VIEWERS) {
+      window.location.href = "/?redirect=RestrictedAccess"
+    } 
+    else {
+      this.route.params.subscribe(params => {
+        if (params['id'] != undefined) {
+          this.article_id = +params['id']; // (+) converts string 'id' to a number
         }
-      );
+      });
+      this.getCategoriesCount();
+      this.getCountries();
+      if (this.article_id != null) {
+        this.cmsService.getArticleById(this.article_id).subscribe(
+          data => {
+            if (data.data != undefined) {
+              let article = JSON.parse(data.data);
+              this.is_published = article.is_published;
+              if (currentUser.id != article.author.id && currentUser.tid != Constants.ROLES.ADMIN) {
+                window.location.href = "/404"
+              } 
+              else {
+                this.subject = article.subject;
+                try {
+                  JSON.parse(article.keywords.replace(/\'/g, "\"")).forEach(element => {
+                    this.keyword = this.keyword + " " + element.keyword
+                  });
+                } catch {
+                  article.keywords.forEach(element => {
+                    this.keyword = this.keyword + " " + element.keyword
+                  });
+                }
+                this.keyword = this.keyword.trim();
+                this.overview = article.overview;
+                this.body = article.body;
+                this.selectedCategory = article.category.id;
+                this.selectedSubCategory = article.sub_category.id;
+                this.imageUrl = article.images;
+                this.displayImage = this.imageUrl.thumbnail;
+                this.country = article.country;
+                this.state = article.state;
+                this.city = article.city;
+                if (this.country.trim() != "") {
+                  this.regionalFlag = true;
+                }
+              }
+            } else {
+              this.alertService.error(data.message);
+            }
+          },
+          error => {
+            try {
+              this.alertService.error(JSON.parse(error._body).message);
+            }
+            catch {
+              this.alertService.error("Server Error: Please try after some time.");
+            }
+          }
+        );
+      }
     }
   }
 
@@ -196,7 +214,9 @@ export class CmsComponent implements OnInit {
   }
 
   saveBlog() {
-    document.getElementById("save").setAttribute("disabled","disabled");
+    this.validate();
+    /*
+    document.getElementById("save").setAttribute("disabled", "disabled");
     if (this.image != null) {
       if (this.article_id == null) {
         this.addArticle();
@@ -207,8 +227,58 @@ export class CmsComponent implements OnInit {
       this.addArticle();
     } else {
       this.updateArticle(false);
-    }
+    }*/
   }
+
+validate(){
+  var isValid=true;
+  if(this.subject.trim() =="" || (this.subject.length<3 && this.subject.length>100)){
+    this.subject_err="Subject should be 10 - 100 characters long";
+    isValid=false;
+  } else {
+    this.subject_err="";
+  }
+
+  if(this.overview.trim() =="" || (this.overview.length<3 && this.overview.length>200)){
+    this.overview_err="Overview should be 10 - 200 characters long";
+    isValid=false;
+  } else {
+    this.overview_err="";
+  }
+  var re = /^([a-zA-Z0-9]+\s)*[a-zA-Z0-9]+$/
+  if(this.keyword.trim() == ""){
+    this.keywords_err="Keywords are required!";
+    isValid=false;
+  } else if(this.keyword.split(" ").length>5){
+    this.keywords_err="Can use only 5 keywords.";
+    isValid=false;
+  } else  if(!re.test(this.keyword)){
+    this.keywords_err="Only characters and numbers can be used.";
+    isValid=false;
+  } else {
+    this.keywords_err="";
+  }
+
+  if(this.body.length <10){
+    this.body_err="Content needs to be atleast 10 characters long.";
+    isValid=false;
+  } else {
+    this.body_err=""
+  }
+  console.log(this.image.get("file"));
+  if(this.image == null){
+    this.banner_err="Pls add image describing your article.";  
+  } else if(this.image.get("file")["size"] > 2000001){
+    this.banner_err="Max size supported is 2mb.";
+  } else if(["image/png","image/jpg", "image/jpeg"].indexOf(this.image.get("file")["type"].toLowerCase()) == -1){
+    this.banner_err="Only png and jpg images are supported.";
+  } else {
+    this.banner_err="";
+  }
+  Array("A","B")
+  this.image.get("file")["type"]
+  return isValid;
+}
 
   uploadImage(flag: boolean) {
     this.cmsService.uploadImages(this.image, this.article_id).subscribe(
@@ -323,48 +393,48 @@ export class CmsComponent implements OnInit {
     });
   }
 
-  callPreview(){
-    setTimeout(this.preview(),3000);
+  callPreview() {
+    setTimeout(this.preview(), 3000);
   }
-  preview(){
+  preview() {
     this.cmsService.getArticleById(this.article_id).subscribe(
-      data=>{
+      data => {
         var article = JSON.parse(data.data);
         var uid = article.uid;
         var cat = article.category.name.trim().toLowerCase();
         var sub_cat = article.sub_category.name.trim().toLowerCase();
-        window.location.href = "/articles/"+cat+"/"+sub_cat+"/"+uid
+        window.location.href = "/articles/" + cat + "/" + sub_cat + "/" + uid
       },
-      error=>{
+      error => {
         this.alertService.error("Server Error: Error redirecting to preview. Please go to 'Profile > My Articles' for link.");
       }
     );
   }
 
-  cancel(){
-    if(confirm("Warning! Are you sure to cancel any changes made will be lost permanently.")){
-      window.location.href="/";
+  cancel() {
+    if (confirm("Warning! Are you sure to cancel any changes made will be lost permanently.")) {
+      window.location.href = "/";
     }
   }
-  publish(){
-    if(this.is_published == 0)
-      this.is_published=1;
-    else 
-      this.is_published=0;
-    this.cmsService.publish(this.article_id,this.is_published).subscribe(
-      data=>{
-        if(this.is_published == 1) {
+  publish() {
+    if (this.is_published == 0)
+      this.is_published = 1;
+    else
+      this.is_published = 0;
+    this.cmsService.publish(this.article_id, this.is_published).subscribe(
+      data => {
+        if (this.is_published == 1) {
           this.alertService.success("Success: Article published successfully.");
           this.callPreview();
         }
         else {
           this.alertService.success("Success: Article unpublished successfully.");
         }
-    },
-      error=>{
+      },
+      error => {
         this.alertService.error("Sorry: We encountered some error. Please try after sometime.");
       }
     );
-    
+
   }
 }

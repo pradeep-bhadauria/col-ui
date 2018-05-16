@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants, AlertService } from './../utils/index';
+import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -8,8 +9,14 @@ import { Constants, AlertService } from './../utils/index';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private meta: Meta,
+    private title: Title) { 
 
-  ngOnInit() {}
+  }
+
+  ngOnInit() {
+    this.meta.updateTag({"robots":"noindex, nofollow"});
+    this.title.setTitle("Behind Stories - User");
+  }
 
 }

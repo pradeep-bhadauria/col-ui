@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Constants, AlertService } from './../utils/index';
 import { SubCategoriesService, CategoriesService } from './../services/index';
 import { SubCategories, Categories } from './../models/index';
+import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-subcategory',
@@ -10,6 +11,8 @@ import { SubCategories, Categories } from './../models/index';
 })
 export class SubcategoryComponent implements OnInit {
   ngOnInit() {
+    this.meta.updateTag({"robots":"noindex, nofollow"});
+    this.title.setTitle("Behind Stories - Sub Category");
   }
   accessAllowed=false;
   query="";
@@ -26,7 +29,8 @@ export class SubcategoryComponent implements OnInit {
   constructor(
     private subCategoriesService: SubCategoriesService, 
     private alertService: AlertService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,private meta: Meta,
+    private title: Title
   ) {
     this.loading = true;
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));

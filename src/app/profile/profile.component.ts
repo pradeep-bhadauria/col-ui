@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService, UserService, PageService } from './../services/index';
 import { Constants, AlertService } from './../utils/index';
 import { ActivatedRoute } from '@angular/router';
+import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -33,7 +34,8 @@ export class ProfileComponent implements OnInit {
     public alertService: AlertService,
     private route: ActivatedRoute,
     private userService: UserService,
-    private pageService: PageService
+    private pageService: PageService,private meta: Meta,
+    private title: Title
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if(this.user == null){
@@ -41,6 +43,9 @@ export class ProfileComponent implements OnInit {
     }
   }
   ngOnInit(){
+    this.meta.updateTag({"robots":"noindex, nofollow"});
+    this.title.setTitle("Behind Stories - Profile");
+
     this.route.params.subscribe(params => {
       if (params['module'] != undefined) {
         this.active = params['module'].trim();

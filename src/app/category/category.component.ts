@@ -3,6 +3,7 @@ import { CategoriesService } from './../services/index';
 import { Categories } from './../models/index';
 import { Constants, AlertService } from './../utils/index';
 import { ActivatedRoute, Router } from '@angular/router';
+import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-category',
@@ -10,7 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  ngOnInit() {}
+  ngOnInit() {
+    this.meta.updateTag({"robots":"noindex, nofollow"});
+    this.title.setTitle("Behind Stories - Categories");
+
+  }
   accessAllowed=false;
   query="";
   loading = true;
@@ -25,7 +30,9 @@ export class CategoryComponent implements OnInit {
   constructor(
     private categoriesService: CategoriesService, 
     private alertService: AlertService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private meta: Meta,
+    private title: Title
   ) {
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if(currentUser == null){
