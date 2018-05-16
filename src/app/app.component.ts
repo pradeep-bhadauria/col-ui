@@ -67,8 +67,6 @@ export class AppComponent  implements OnInit {
     this.pageService.getPublishedArticleByCategory(cat_id, 0, 10).subscribe(
       data=>{
         this.latestNews = JSON.parse(data.data);
-        //this.latestNews = '<li><a href="#"><img src="/assets/images/news_thumbnail3.jpg" alt="">My Fourth News Item</a></li><li><a href="#"><img src="/assets/images/news_thumbnail3.jpg" alt="">My Sixth News Item</a></li><li><a href="#"><img src="/assets/images/news_thumbnail3.jpg" alt="">My Seventh News Item</a></li><li><a href="#"><img src="/assets/images/news_thumbnail3.jpg" alt="">My Eighth News Item</a></li><li><a href="#"><img src="/assets/images/news_thumbnail2.jpg" alt="">My Ninth News Item</a></li>';
-        
       }
     );
 

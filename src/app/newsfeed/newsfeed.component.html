@@ -28,74 +28,61 @@
 
 <!--Single Post Content section-->
 <div class="single_post_content">
-    <h2><span>Business</span></h2>
+    <h2><span>News</span></h2>
     <div class="single_post_content_left">
-        <ul class="business_catgnav  wow fadeInDown">
-        <li>
-            <figure class="bsbig_fig"> <a href="/page" class="featured_img"> <img alt="" src="/assets/images/featured_img1.jpg"> <span class="overlay"></span> </a>
-            <figcaption> <a href="/page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-            </figure>
-        </li>
+        <ul *ngIf="newsFirst!=null" class="business_catgnav  wow fadeInDown">
+            <li>
+                <figure class="bsbig_fig">
+                    <a href="/articles/{{newsFirst.category.name | lowercase}}/{{newsFirst.sub_category.name | lowercase}}/{{newsFirst.uid}}" class="featured_img"> <img alt="" src="{{newsFirst.images.banner}}"> <span class="overlay"></span> </a>
+                <figcaption> <a href="/articles/{{newsFirst.category.name | lowercase}}/{{newsFirst.sub_category.name | lowercase}}/{{newsFirst.uid}}">{{newsFirst.subject}}</a> </figcaption>
+                <p>{{newsFirst.overview}}</p>
+                </figure>
+            </li>
         </ul>
     </div>
     <div class="single_post_content_right">
-        <ul class="spost_nav">
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-            </div>
-        </li>
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-            </div>
-        </li>
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-            </div>
-        </li>
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-            </div>
-        </li>
+        <ul  *ngIf="newsRest!=null" class="spost_nav">
+            <li *ngFor="let item of newsRest">
+                <div class="media wow fadeInDown">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="media-left"> 
+                        <img alt="" src="{{item.images.thumbnail}}">
+                    </a>
+                <div class="media-body">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="catg_title">
+                        {{item.subject}}
+                    </a>
+                </div>
+                </div>
+            </li>
         </ul>
     </div>
-  </div>
-  <div class="fashion_technology_area">
+</div>
+
+<div class="fashion_technology_area">
     <div class="fashion">
         <div class="single_post_content">
-        <h2><span>Fashion</span></h2>
-        <ul class="business_catgnav wow fadeInDown">
+        <h2><span>Life & Style</span></h2>
+        <ul *ngIf="lifestyleFirst!=null" class="business_catgnav  wow fadeInDown">
             <li>
-            <figure class="bsbig_fig"> <a href="/page" class="featured_img"> <img alt="" src="/assets/images/featured_img2.jpg"> <span class="overlay"></span> </a>
-                <figcaption> <a href="/page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-            </figure>
+                <figure class="bsbig_fig">
+                    <a href="/articles/{{lifestyleFirst.category.name | lowercase}}/{{lifestyleFirst.sub_category.name | lowercase}}/{{lifestyleFirst.uid}}" class="featured_img"> <img alt="" src="{{lifestyleFirst.images.banner}}"> <span class="overlay"></span> </a>
+                <figcaption> <a href="/articles/{{lifestyleFirst.category.name | lowercase}}/{{lifestyleFirst.sub_category.name | lowercase}}/{{lifestyleFirst.uid}}">{{lifestyleFirst.subject}}</a> </figcaption>
+                <p>{{lifestyleFirst.overview}}</p>
+                </figure>
             </li>
         </ul>
-        <ul class="spost_nav">
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-            </div>
-            </li>
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-            </div>
-            </li>
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-            </div>
-            </li>
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-            </div>
+        <ul *ngIf="lifestyleRest!=null" class="spost_nav">
+            <li *ngFor="let item of lifestyleRest">
+                <div class="media wow fadeInDown">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="media-left"> 
+                        <img alt="" src="{{item.images.thumbnail}}">
+                    </a>
+                <div class="media-body">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="catg_title">
+                        {{item.subject}}
+                    </a>
+                </div>
+                </div>
             </li>
         </ul>
         </div>
@@ -103,108 +90,152 @@
     <div class="technology">
         <div class="single_post_content">
         <h2><span>Technology</span></h2>
-        <ul class="business_catgnav">
+        <ul *ngIf="technologyFirst!=null" class="business_catgnav  wow fadeInDown">
             <li>
-            <figure class="bsbig_fig wow fadeInDown"> <a href="/page" class="featured_img"> <img alt="" src="/assets/images/featured_img3.jpg"> <span class="overlay"></span> </a>
-                <figcaption> <a href="/page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-            </figure>
+                <figure class="bsbig_fig">
+                    <a href="/articles/{{technologyFirst.category.name | lowercase}}/{{technologyFirst.sub_category.name | lowercase}}/{{technologyFirst.uid}}" class="featured_img"> <img alt="" src="{{technologyFirst.images.banner}}"> <span class="overlay"></span> </a>
+                <figcaption> <a href="/articles/{{technologyFirst.category.name | lowercase}}/{{technologyFirst.sub_category.name | lowercase}}/{{technologyFirst.uid}}">{{technologyFirst.subject}}</a> </figcaption>
+                <p>{{technologyFirst.overview}}</p>
+                </figure>
             </li>
         </ul>
-        <ul class="spost_nav">
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-            </div>
-            </li>
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-            </div>
-            </li>
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-            </div>
-            </li>
-            <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-                <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-            </div>
+        <ul *ngIf="technologyRest!=null" class="spost_nav">
+            <li *ngFor="let item of technologyRest">
+                <div class="media wow fadeInDown">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="media-left"> 
+                        <img alt="" src="{{item.images.thumbnail}}">
+                    </a>
+                <div class="media-body">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="catg_title">
+                        {{item.subject}}
+                    </a>
+                </div>
+                </div>
             </li>
         </ul>
         </div>
     </div>
-    </div>
-    <div class="single_post_content">
-    <h2><span>Photography</span></h2>
-    <ul class="photograph_nav  wow fadeInDown">
-        <li>
-        <div class="photo_grid">
-            <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="/assets/images/photograph_img2.jpg" title="Photography Ttile 1"> <img src="/assets/images/photograph_img2.jpg" alt=""/></a> </figure>
-        </div>
-        </li>
-        <li>
-        <div class="photo_grid">
-            <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="/assets/images/photograph_img3.jpg" title="Photography Ttile 2"> <img src="/assets/images/photograph_img3.jpg" alt=""/> </a> </figure>
-        </div>
-        </li>
-        <li>
-        <div class="photo_grid">
-            <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="/assets/images/photograph_img4.jpg" title="Photography Ttile 3"> <img src="/assets/images/photograph_img4.jpg" alt=""/> </a> </figure>
-        </div>
-        </li>
-        <li>
-        <div class="photo_grid">
-            <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="/assets/images/photograph_img4.jpg" title="Photography Ttile 4"> <img src="/assets/images/photograph_img4.jpg" alt=""/> </a> </figure>
-        </div>
-        </li>
-        <li>
-        <div class="photo_grid">
-            <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="/assets/images/photograph_img2.jpg" title="Photography Ttile 5"> <img src="/assets/images/photograph_img2.jpg" alt=""/> </a> </figure>
-        </div>
-        </li>
-        <li>
-        <div class="photo_grid">
-            <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="/assets/images/photograph_img3.jpg" title="Photography Ttile 6"> <img src="/assets/images/photograph_img3.jpg" alt=""/> </a> </figure>
-        </div>
-        </li>
-    </ul>
-    </div>
-    <div class="single_post_content">
-    <h2><span>Games</span></h2>
+</div>
+
+<div class="single_post_content">
+    <h2><span>Entertainment</span></h2>
     <div class="single_post_content_left">
-        <ul class="business_catgnav">
-        <li>
-            <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="/page"> <img src="/assets/images/featured_img1.jpg" alt=""> <span class="overlay"></span> </a>
-            <figcaption> <a href="/page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-            </figure>
-        </li>
+        <ul *ngIf="entertainmentFirst!=null" class="business_catgnav  wow fadeInDown">
+            <li>
+                <figure class="bsbig_fig">
+                    <a href="/articles/{{entertainmentFirst.category.name | lowercase}}/{{entertainmentFirst.sub_category.name | lowercase}}/{{entertainmentFirst.uid}}" class="featured_img"> <img alt="" src="{{entertainmentFirst.images.banner}}"> <span class="overlay"></span> </a>
+                <figcaption> <a href="/articles/{{entertainmentFirst.category.name | lowercase}}/{{entertainmentFirst.sub_category.name | lowercase}}/{{entertainmentFirst.uid}}">{{entertainmentFirst.subject}}</a> </figcaption>
+                <p>{{entertainmentFirst.overview}}</p>
+                </figure>
+            </li>
         </ul>
     </div>
     <div class="single_post_content_right">
-        <ul class="spost_nav">
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-            </div>
-        </li>
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-            </div>
-        </li>
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img1.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-            </div>
-        </li>
-        <li>
-            <div class="media wow fadeInDown"> <a href="/page" class="media-left"> <img alt="" src="/assets/images/post_img2.jpg"> </a>
-            <div class="media-body"> <a href="/page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-            </div>
-        </li>
+        <ul  *ngIf="entertainmentRest!=null" class="spost_nav">
+            <li *ngFor="let item of entertainmentRest">
+                <div class="media wow fadeInDown">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="media-left"> 
+                        <img alt="" src="{{item.images.thumbnail}}">
+                    </a>
+                <div class="media-body">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="catg_title">
+                        {{item.subject}}
+                    </a>
+                </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="fashion_technology_area">
+    <div class="fashion">
+        <div class="single_post_content">
+        <h2><span>Sports</span></h2>
+        <ul *ngIf="sportsFirst!=null" class="business_catgnav  wow fadeInDown">
+            <li>
+                <figure class="bsbig_fig">
+                    <a href="/articles/{{sportsFirst.category.name | lowercase}}/{{sportsFirst.sub_category.name | lowercase}}/{{sportsFirst.uid}}" class="featured_img"> <img alt="" src="{{sportsFirst.images.banner}}"> <span class="overlay"></span> </a>
+                <figcaption> <a href="/articles/{{sportsFirst.category.name | lowercase}}/{{sportsFirst.sub_category.name | lowercase}}/{{sportsFirst.uid}}">{{sportsFirst.subject}}</a> </figcaption>
+                <p>{{sportsFirst.overview}}</p>
+                </figure>
+            </li>
+        </ul>
+        <ul *ngIf="sportsRest!=null" class="spost_nav">
+            <li *ngFor="let item of sportsRest">
+                <div class="media wow fadeInDown">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="media-left"> 
+                        <img alt="" src="{{item.images.thumbnail}}">
+                    </a>
+                <div class="media-body">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="catg_title">
+                        {{item.subject}}
+                    </a>
+                </div>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+    <div class="technology">
+        <div class="single_post_content">
+        <h2><span>Business</span></h2>
+        <ul *ngIf="businessFirst!=null" class="business_catgnav  wow fadeInDown">
+            <li>
+                <figure class="bsbig_fig">
+                    <a href="/articles/{{businessFirst.category.name | lowercase}}/{{businessFirst.sub_category.name | lowercase}}/{{businessFirst.uid}}" class="featured_img"> <img alt="" src="{{businessFirst.images.banner}}"> <span class="overlay"></span> </a>
+                <figcaption> <a href="/articles/{{businessFirst.category.name | lowercase}}/{{businessFirst.sub_category.name | lowercase}}/{{businessFirst.uid}}">{{businessFirst.subject}}</a> </figcaption>
+                <p>{{businessFirst.overview}}</p>
+                </figure>
+            </li>
+        </ul>
+        <ul *ngIf="businessRest!=null" class="spost_nav">
+            <li *ngFor="let item of businessRest">
+                <div class="media wow fadeInDown">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="media-left"> 
+                        <img alt="" src="{{item.images.thumbnail}}">
+                    </a>
+                <div class="media-body">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="catg_title">
+                        {{item.subject}}
+                    </a>
+                </div>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="single_post_content">
+    <h2><span>Humour</span></h2>
+    <div class="single_post_content_left">
+        <ul *ngIf="humourFirst!=null" class="business_catgnav  wow fadeInDown">
+            <li>
+                <figure class="bsbig_fig">
+                    <a href="/articles/{{humourFirst.category.name | lowercase}}/{{humourFirst.sub_category.name | lowercase}}/{{humourFirst.uid}}" class="featured_img"> <img alt="" src="{{humourFirst.images.banner}}"> <span class="overlay"></span> </a>
+                <figcaption> <a href="/articles/{{humourFirst.category.name | lowercase}}/{{humourFirst.sub_category.name | lowercase}}/{{humourFirst.uid}}">{{humourFirst.subject}}</a> </figcaption>
+                <p>{{humourFirst.overview}}</p>
+                </figure>
+            </li>
+        </ul>
+    </div>
+    <div class="single_post_content_right">
+        <ul  *ngIf="humourRest!=null" class="spost_nav">
+            <li *ngFor="let item of entertainmentRest">
+                <div class="media wow fadeInDown">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="media-left"> 
+                        <img alt="" src="{{item.images.thumbnail}}">
+                    </a>
+                <div class="media-body">
+                    <a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}" class="catg_title">
+                        {{item.subject}}
+                    </a>
+                </div>
+                </div>
+            </li>
         </ul>
     </div>
 </div>
