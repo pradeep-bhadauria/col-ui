@@ -5,17 +5,7 @@ jQuery(document).ready(function() {
     }, function() {
         $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
     });
-    // slick slider call 
-    $('.slick_slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 800,
-        slidesToShow: 1,
-        slide: 'div',
-        autoplay: true,
-        autoplaySpeed: 5000,
-        cssEase: 'linear'
-    });
+    
     // latest post slider call 
     $('.latest_postnav').newsTicker({
         row_height: 64,
@@ -57,6 +47,23 @@ jQuery(document).ready(function() {
             $("ul#ticker01").liScroll();
             clearInterval(tickerCheck);
         }
+    },1000);
+
+    var sliderChecker = setInterval(function(){
+        if($("#slidershow").val() == "yes"){
+            $(".slick_slider").css("display","block");
+            $('.slick_slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 800,
+                slidesToShow: 1,
+                slide: 'div',
+                autoplay: true,
+                autoplaySpeed: 5000,
+                cssEase: 'linear'
+            });
+        }
+        console.log($("#slidershow").val());
     },1000);
 });
 
