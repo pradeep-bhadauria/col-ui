@@ -1,4 +1,4 @@
-<div class="single_page">
+<div class="single_post_content">
     <ol class="breadcrumb">
       <li><a href="/">Home</a></li>
       <li *ngIf="category != null" [ngClass]="{'active': subcategory === null}"><a href="/articles/{{category | lowercase}}">{{category | titlecase}}</a></li>
@@ -6,43 +6,11 @@
     </ol>
 
     <div *ngIf="displayFlag == 1">
-      <div *ngIf="articeByCategory != null">
-          <div *ngFor="let item of articeByCategory" class="col-sm-12 contpost">
-            <div class="row">
-              <div class="col PostTitle">
-                <h5><a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}">{{item.subject}}</a></h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-3 col-xs-4">
-                <img class="thumbnail center" src="{{item.images.thumbnail}}" alt="No Image"/>
-              </div>
-              <div class="col-sm-9 col-xs-8">      
-                <p>{{item.overview}}</p>
-                <p><span class="badge badge-info">{{item.category.name}}</span> <span class="glyphicon glyphicon-chevron-right"></span> <span class="badge badge-info">{{item.sub_category.name}}</span></p>
-                <p>
-                  <span class="PostDate"><i class="fa fa-calendar"></i> {{item.created | amFromUtc |amTimeAgo}}</span>
-                </p>
-              </div>
-            </div>
-            <div class="row hidden-sm hidden-xs">
-              <div class="col small p-2">
-                <p>
-                  <span><i class="fa fa-user"></i> {{item.author.user_fname}} {{item.author.user_lname}}</span> 
-                  | <span><i class="fa fa-comment"></i> {{item.stats.comments}} Comments</span>
-                  | <span><i class="fa fa-thumbs-up"></i> {{item.stats.shares}} Likes</span>
-                  | <span><i class="fa fa-eye"></i> {{item.stats.views}} Views</span>
-                  | <span><i class="fa fa-share"></i> {{item.stats.shares}} Shares</span>
-                  <br><br>
-                  <i class="fa fa-tags"></i> Tags : 
-                  <span *ngFor="let i of item.keywords"><span class="badge badge-info">{{i.keyword}}</span>&nbsp;</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        <!--a class="btn btn-primary" id="get-more" (click)="getMore()">Next</a-->
+      <ul class="article-list" *ngIf="articeByCategory != ''" [innerHTML]="articeByCategory"></ul>
+      <div class="loadmore">
+        <a *ngIf="articeByCategory != ''" class="btn btn-theme" id="get-more" (click)="getMore()">{{more}}</a>
       </div>
-      <div *ngIf="articeByCategory == null">
+      <div *ngIf="articeByCategory == ''">
         <div class="left_content">
           <div class="error_page">
             <h3>We Are Sorry</h3>
@@ -54,43 +22,11 @@
     </div>
 
     <div *ngIf="displayFlag == 2">
-      <div *ngIf="articeBySubCategory != null">
-          <div *ngFor="let item of articeBySubCategory" class="col-sm-12 contpost">
-            <div class="row">
-              <div class="col PostTitle">
-                <h5><a href="/articles/{{item.category.name | lowercase}}/{{item.sub_category.name | lowercase}}/{{item.uid}}">{{item.subject}}</a></h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-3 col-xs-4">
-                <img class="thumbnail center" src="{{item.images.thumbnail}}" alt="No Image"/>
-              </div>
-              <div class="col-sm-9 col-xs-8">      
-                <p>{{item.overview}}</p>
-                <p><span class="badge badge-info">{{item.category.name}}</span> <span class="glyphicon glyphicon-chevron-right"></span> <span class="badge badge-info">{{item.sub_category.name}}</span></p>
-                <p>
-                  <span class="PostDate"><i class="fa fa-calendar"></i> {{item.created | amFromUtc |amTimeAgo}}</span>
-                </p>
-              </div>
-            </div>
-            <div class="row hidden-sm hidden-xs">
-              <div class="col small p-2">
-                <p>
-                  <span><i class="fa fa-user"></i> {{item.author.user_fname}} {{item.author.user_lname}}</span> 
-                  | <span><i class="fa fa-comment"></i> {{item.stats.comments}} Comments</span>
-                  | <span><i class="fa fa-thumbs-up"></i> {{item.stats.shares}} Likes</span>
-                  | <span><i class="fa fa-eye"></i> {{item.stats.views}} Views</span>
-                  | <span><i class="fa fa-share"></i> {{item.stats.shares}} Shares</span>
-                  <br><br>
-                  <i class="fa fa-tags"></i> Tags : 
-                  <span *ngFor="let i of item.keywords"><span class="badge badge-info">{{i.keyword}}</span>&nbsp;</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <a class="btn btn-primary" id="get-more" (click)="getMore()">Get More</a>
-      </div>
-      <div *ngIf="articeBySubCategory == null">
+      <ul class="article-list" *ngIf="articeBySubCategory != ''" [innerHTML]="articeBySubCategory"></ul>
+      <div class="loadmore">
+          <a *ngIf="articeBySubCategory != ''" class="btn btn-theme" id="get-more" (click)="getMore()">{{more}}</a>
+        </div>
+      <div *ngIf="articeBySubCategory == ''">
         <div class="left_content">
           <div class="error_page">
             <h3>We Are Sorry</h3>
@@ -114,15 +50,6 @@
           <img *ngIf="article.images.banner != ''"class="img-center banner-image" src="{{article.images.banner}}" alt="">
         </div>
         <p [innerHTML]="article.body"></p>
-        <!--button class="btn default-btn">Default</button>
-        <button class="btn btn-red">Red Button</button>
-        <button class="btn btn-yellow">Yellow Button</button>
-        <button class="btn btn-green">Green Button</button>
-        <button class="btn btn-black">Black Button</button>
-        <button class="btn btn-orange">Orange Button</button>
-        <button class="btn btn-blue">Blue Button</button>
-        <button class="btn btn-lime">Lime Button</button>
-        <button class="btn btn-theme">Theme Button</button-->
       </div>
       <div class="social_link">
         <ul class="sociallink_nav">
@@ -135,7 +62,7 @@
       </div>
   </div>
   <div id="comments">
-    <fb-comments href="{{url}}" data-numposts="5" width="100%"></fb-comments>
+    <fb-comments href="{{url}}" data-numposts="5" width="500"></fb-comments>
   </div>
   <div *ngIf="article != null" class="related_post">
     <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>

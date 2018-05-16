@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { Constants, AlertService } from './../utils/index';
 import { PageService } from './../services/index';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,12 +7,13 @@ import {DomSanitizer, Meta, Title} from '@angular/platform-browser';
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.css']
+  styleUrls: ['./page.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PageComponent implements OnInit {
   infiniteScrollCount=0;
   offset=0;
-  limit=1;//Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
+  limit=Constants.DEFAULT.TABLE_PAGINATION_LIMIT;
   htmlVariable = "";
   displayFlag=0;
   url=null;
@@ -22,11 +23,11 @@ export class PageComponent implements OnInit {
   subcategory = null;
   sub_cat_id = null;
   article = null;
-  articeByCategory = null;
-  articeBySubCategory = null;
+  articeByCategory = '';
+  articeBySubCategory = '';
   article_id = null;
   uid=null;
-
+  more="Load More";
 
 
   constructor(
@@ -100,13 +101,13 @@ export class PageComponent implements OnInit {
     this.pageService.getPublishedArticleByCategory(this.cat_id, this.offset, this.limit).subscribe(
       data => {
         try{
-          this.articeByCategory = JSON.parse(data.data);
+          var cat = JSON.parse(data.data);
           this.getCategoryCount();
-          //var html = this.makeContent(this.articeByCategory);
-          //this.htmlVariable += html;
-          //document.getElementById("articeByCategoryContainer");
+          var html = this.makeContent(cat);
+          //document.getElementById("articeBySubCategoryContainer").innerHTML += html;
+          this.articeByCategory += html;
         } catch {
-          this.articeByCategory = null;
+          this.articeByCategory = '';
         }
         this.displayFlag=1;
       }
@@ -117,10 +118,13 @@ export class PageComponent implements OnInit {
     this.pageService.getPublishedArticleBySubCategory(this.cat_id, this.sub_cat_id, this.offset, this.limit).subscribe(
       data => {
         try{
-          this.articeBySubCategory = JSON.parse(data.data);
+          var sub_cat = JSON.parse(data.data);
           this.getSubCategoryCount();
+          this.getCategoryCount();
+          var html = this.makeContent(sub_cat);
+          this.articeBySubCategory += html;
         } catch {
-          this.articeBySubCategory = null;
+          this.articeBySubCategory = '';
         }
         this.displayFlag=2;
       }
@@ -173,7 +177,7 @@ export class PageComponent implements OnInit {
       }
     } else {
       document.getElementById("get-more").setAttribute("disabled","disabled");
-      this.alertService.error("No more articles available..");
+      this.more="No More Articles Here";
     }
   }
 
@@ -196,37 +200,18 @@ export class PageComponent implements OnInit {
   makeContent(data){
     var htmlStr="";
     data.forEach(item => {
-      htmlStr = htmlStr +`<div class="col-sm-12 contpost">
-        <div class="row">
-          <div class="col PostTitle">
-            <h5><a href="/articles/`+ item.category.name.toLowerCase() +`/`+ item.sub_category.name.toLowerCase() +`/`+ item.uid+`">`+item.subject+`</a></h5>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3 col-xs-4">
-            <img class="thumbnail center" src="`+item.images.thumbnail+`" alt="No Image"/>
-          </div>
-          <div class="col-sm-9 col-xs-8">      
-            <p>`+item.overview+`</p>
-            <p><span class="badge badge-info">`+item.category.name+`</span> <span class="glyphicon glyphicon-chevron-right"></span> <span class="badge badge-info">`+item.sub_category.name+`</span></p>
-            <p>
-              <span class="PostDate"><i class="fa fa-calendar"></i> `+item.created+`</span>
-            </p>
-          </div>
-        </div>
-        <div class="row hidden-sm hidden-xs">
-          <div class="col small p-2">
-            <p>
-              <span><i class="fa fa-user"></i> `+item.author.user_fname+` `+item.author.user_lname+`</span> 
-              | <span><i class="fa fa-comment"></i> `+item.stats.comments+` Comments</span>
-              | <span><i class="fa fa-thumbs-up"></i> `+item.stats.shares+` Likes</span>
-              | <span><i class="fa fa-eye"></i> `+item.stats.views+` Views</span>
-              | <span><i class="fa fa-share"></i> `+item.stats.shares+` Shares</span>
-            </p>
-          </div>
-        </div>
-      </div>`  
+      htmlStr = htmlStr + '<li *ngFor="let item of articeByCategory">'+
+                            '<div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">'+
+                                '<a class="media-left" href="/articles/'+ item.category.name.toLowerCase() +'/'+ item.sub_category.name.toLowerCase() +'/'+ item.uid+'">'+
+                                '<img alt="" src="'+item.images.thumbnail+'"/> </a>'+
+                                '<div class="media-body">'+
+                                    '<h5><a class="catg_title" href="/articles/'+ item.category.name.toLowerCase() +'/'+ item.sub_category.name.toLowerCase() +'/'+ item.uid+'"> '+item.subject+'</a></h5>'+
+                                  '<p>'+item.overview+'</p>'+
+                                '</div>'+
+                            '</div>'+
+                        '</li>'; 
     });
+    //return this.sanitizer.bypassSecurityTrustResourceUrl(htmlStr);
     return htmlStr;
   }
 }

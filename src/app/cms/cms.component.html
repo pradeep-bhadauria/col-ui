@@ -70,21 +70,22 @@
             </select>
         </div>
         <div *ngIf="regionalFlag" class="form-group col-md-4">
-                <label>City</label>
-                <select disabled=disabled class="form-control" id="city"  [(ngModel)]="city">
-                        <option value="">--Select City--</option>
-                    <option *ngFor="let item of citiesList" value="{{item}}">{{item}}</option>
-                </select>
-            </div>
-        <div class="form-group col-md-12">
+            <label>City</label>
+            <select disabled=disabled class="form-control" id="city"  [(ngModel)]="city">
+                    <option value="">--Select City--</option>
+                <option *ngFor="let item of citiesList" value="{{item}}">{{item}}</option>
+            </select>
+        </div>
+        <hr>
+        <div class="form-group col-md-12 buttons">
             <ul class="list-inline  pull-right">
-                <li><a (click)="saveBlog()" id="save" class="btn btn-primary btn-sm">Save</a></li>
-                <li><a (click)="cancel()" class="btn btn-default btn-sm">Cancel</a></li>
-                <li  *ngIf="article_id!=null"><a (click)="callPreview()" class="btn btn-success btn-sm">Preview</a></li>
+                <li><a (click)="saveBlog()" id="save" class="btn default-btn btn-sm"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a></li>
+                <li><a (click)="cancel()" class="btn btn-red btn-sm"><span class="glyphicon glyphicon-floppy-remove"></span> Cancel</a></li>
+                <li  *ngIf="article_id!=null"><a (click)="callPreview()" class="btn btn-theme btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Preview</a></li>
                 <li *ngIf="article_id!=null">
-                    <a (click)="publish()" class="btn btn-success btn-sm">
-                        <span *ngIf="is_published==0">Publish</span>
-                        <span *ngIf="is_published==1">Unpublish</span>
+                    <a (click)="publish()" class="btn btn-theme btn-sm">
+                        <span *ngIf="is_published==0"><span class="glyphicon glyphicon-ok"></span> Publish</span>
+                        <span *ngIf="is_published==1"><span class="glyphicon glyphicon-remove"></span> Unpublish</span>
                     </a>
                 </li>
             </ul>

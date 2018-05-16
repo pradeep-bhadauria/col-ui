@@ -128,6 +128,10 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  deleteArticle(article_id:number){
+    alert(article_id);
+  }
+
   validate(name: string){
     var allGood = true;
     if(name=="name"){

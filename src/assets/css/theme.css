@@ -1,3 +1,5 @@
+.btn-theme{background-color:#4063A1; color:#fff}
+.btn-theme:hover{background-color:#4063A1; color:#fff}
 .scrollToTop{background-color:#4063A1; color:#fff}
 .scrollToTop:hover, .scrollToTop:focus{background-color:#fff; color:#4063A1; border-color:1px solid #4063A1}
 .logo > span{color:#4063A1}

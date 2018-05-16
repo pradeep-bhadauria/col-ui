@@ -20,12 +20,12 @@
   <hr />
   <div class="row">
       <div class="col-md-12">
-          <a (click)="offsetChanged(-1)" id="prev" class="btn btn-primary btn-sm disabled">&lt;</a>
-          <a (click)="offsetChanged(1)" id="next" class="btn btn-primary btn-sm">&gt;</a>
+          <a (click)="offsetChanged(-1)" id="prev" class="btn btn-theme btn-sm disabled">&lt;</a>
+          <a (click)="offsetChanged(1)" id="next" class="btn btn-theme btn-sm">&gt;</a>
           <span style="
       margin: 8px;
       font-size: 12px;">You are viewing {{offset}} - {{add(offset,pageLimit)}} rows of {{rowCount}} rows</span>
-          <a (click)="addSubCategoriesMain()" class="btn btn-primary btn-sm pull-right">
+          <a (click)="addSubCategoriesMain()" class="btn btn-theme btn-sm pull-right">
               <span class="glyphicon glyphicon-plus"></span> Add New Sub Category
           </a>
       </div>
@@ -48,8 +48,8 @@
                   <label for="subSubCategoriesDesc">Description</label>
                   <textarea class="form-control" #subSubCategoriesDesc placeholder="Description"></textarea>
               </div>
-              <button type="submit" (click)="addSubCategories(subSubCategoriesName,subSubCategoriesDesc,Categories)" class="btn btn-primary">Add</button>
-              <button type="clear" (click)="addSubCategoriesMain()" class="btn btn-default">Cancel</button>
+              <a (click)="addSubCategories(subSubCategoriesName,subSubCategoriesDesc,Categories)" class="btn btn-theme"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+              <a (click)="addSubCategoriesMain()" class="btn btn-grey"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
           </form>
       </div>
       <hr />
