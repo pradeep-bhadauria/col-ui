@@ -175,7 +175,7 @@ export class NewsfeedComponent implements OnInit {
         }
         catch{}
         finally{
-          setTimeout(this.showSlider(),5000);
+          setTimeout(this.showSlider(),10000);
         }
       }
     );
