@@ -48,11 +48,11 @@ export class CmsComponent implements OnInit {
     comments: 0
   }
 
-  subject_err="";
-  overview_err="";
-  banner_err="";
-  keywords_err="";
-  body_err="";
+  subject_err = "";
+  overview_err = "";
+  banner_err = "";
+  keywords_err = "";
+  body_err = "";
 
   constructor(
     private cmsService: CMSService,
@@ -72,7 +72,7 @@ export class CmsComponent implements OnInit {
       window.location.href = "/login"
     } else if (currentUser.tid == Constants.ROLES.VIEWERS) {
       window.location.href = "/?redirect=RestrictedAccess"
-    } 
+    }
     else {
       this.route.params.subscribe(params => {
         if (params['id'] != undefined) {
@@ -89,7 +89,7 @@ export class CmsComponent implements OnInit {
               this.is_published = article.is_published;
               if (currentUser.id != article.author.id && currentUser.tid != Constants.ROLES.ADMIN) {
                 window.location.href = "/404"
-              } 
+              }
               else {
                 this.subject = article.subject;
                 try {
@@ -214,71 +214,71 @@ export class CmsComponent implements OnInit {
   }
 
   saveBlog() {
-    this.validate();
-    /*
-    document.getElementById("save").setAttribute("disabled", "disabled");
-    if (this.image != null) {
-      if (this.article_id == null) {
+    if (this.validate()) {
+      document.getElementById("save").setAttribute("disabled", "disabled");
+      if (this.image != null) {
+        if (this.article_id == null) {
+          this.addArticle();
+        } else {
+          this.uploadImage(false);
+        }
+      } else if (this.article_id == null) {
         this.addArticle();
       } else {
-        this.uploadImage(false);
+        this.updateArticle(false);
       }
-    } else if (this.article_id == null) {
-      this.addArticle();
+    }
+  }
+
+  validate() {
+    var isValid = true;
+    if (this.subject.trim() == "" || (this.subject.length < 3 && this.subject.length > 100)) {
+      this.subject_err = "Subject should be 10 - 100 characters long";
+      isValid = false;
     } else {
-      this.updateArticle(false);
-    }*/
-  }
+      this.subject_err = "";
+    }
 
-validate(){
-  var isValid=true;
-  if(this.subject.trim() =="" || (this.subject.length<3 && this.subject.length>100)){
-    this.subject_err="Subject should be 10 - 100 characters long";
-    isValid=false;
-  } else {
-    this.subject_err="";
-  }
+    if (this.overview.trim() == "" || (this.overview.length < 3 && this.overview.length > 200)) {
+      this.overview_err = "Overview should be 10 - 200 characters long";
+      isValid = false;
+    } else {
+      this.overview_err = "";
+    }
+    var re = /^([a-zA-Z0-9]+\s)*[a-zA-Z0-9]+$/
+    if (this.keyword.trim() == "") {
+      this.keywords_err = "Keywords are required!";
+      isValid = false;
+    } else if (this.keyword.split(" ").length > 5) {
+      this.keywords_err = "Can use only 5 keywords.";
+      isValid = false;
+    } else if (!re.test(this.keyword)) {
+      this.keywords_err = "Only characters and numbers can be used.";
+      isValid = false;
+    } else {
+      this.keywords_err = "";
+    }
 
-  if(this.overview.trim() =="" || (this.overview.length<3 && this.overview.length>200)){
-    this.overview_err="Overview should be 10 - 200 characters long";
-    isValid=false;
-  } else {
-    this.overview_err="";
+    if (this.body.length < 10) {
+      this.body_err = "Content needs to be atleast 10 characters long.";
+      isValid = false;
+    } else {
+      this.body_err = ""
+    }
+    console.log(this.image.get("file"));
+    if (this.image == null) {
+      this.banner_err = "Pls add image describing your article.";
+    } else if (this.image.get("file")["size"] > 2000001) {
+      this.banner_err = "Max size supported is 2mb.";
+    } else if (["image/png", "image/jpg", "image/jpeg"].indexOf(this.image.get("file")["type"].toLowerCase()) == -1) {
+      this.banner_err = "Only png and jpg images are supported.";
+    } else {
+      this.banner_err = "";
+    }
+    Array("A", "B")
+    this.image.get("file")["type"]
+    return isValid;
   }
-  var re = /^([a-zA-Z0-9]+\s)*[a-zA-Z0-9]+$/
-  if(this.keyword.trim() == ""){
-    this.keywords_err="Keywords are required!";
-    isValid=false;
-  } else if(this.keyword.split(" ").length>5){
-    this.keywords_err="Can use only 5 keywords.";
-    isValid=false;
-  } else  if(!re.test(this.keyword)){
-    this.keywords_err="Only characters and numbers can be used.";
-    isValid=false;
-  } else {
-    this.keywords_err="";
-  }
-
-  if(this.body.length <10){
-    this.body_err="Content needs to be atleast 10 characters long.";
-    isValid=false;
-  } else {
-    this.body_err=""
-  }
-  console.log(this.image.get("file"));
-  if(this.image == null){
-    this.banner_err="Pls add image describing your article.";  
-  } else if(this.image.get("file")["size"] > 2000001){
-    this.banner_err="Max size supported is 2mb.";
-  } else if(["image/png","image/jpg", "image/jpeg"].indexOf(this.image.get("file")["type"].toLowerCase()) == -1){
-    this.banner_err="Only png and jpg images are supported.";
-  } else {
-    this.banner_err="";
-  }
-  Array("A","B")
-  this.image.get("file")["type"]
-  return isValid;
-}
 
   uploadImage(flag: boolean) {
     this.cmsService.uploadImages(this.image, this.article_id).subscribe(
