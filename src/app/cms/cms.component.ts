@@ -267,17 +267,21 @@ export class CmsComponent implements OnInit {
     } else {
       this.body_err = ""
     }
-    if (this.image == null) {
+
+    if (this.image == null && this.imageUrl.banner == "") {
       isValid = false;
       this.banner_err = "Display image is required!";
-    } else if (this.image.get("file")["size"] > 2000001) {
-      isValid = false;
-      this.banner_err = "Max size supported is 2mb.";
-    } else if (["image/png", "image/jpg", "image/jpeg"].indexOf(this.image.get("file")["type"].toLowerCase()) == -1) {
-      isValid = false;
-      this.banner_err = "Only png, jpg & jpeg formats supported.";
-    } else {
-      this.banner_err = "";
+    } 
+    if (this.image != null){
+      if (this.image.get("file")["size"] > 2000001) {
+        isValid = false;
+        this.banner_err = "Max size supported is 2mb.";
+      } else if (["image/png", "image/jpg", "image/jpeg"].indexOf(this.image.get("file")["type"].toLowerCase()) == -1) {
+        isValid = false;
+        this.banner_err = "Only png, jpg & jpeg formats supported.";
+      } else {
+        this.banner_err = "";
+      }
     }
     return isValid;
   }
@@ -313,7 +317,7 @@ export class CmsComponent implements OnInit {
             this.uploadImage(true);
           } else {
             this.alertService.success("Success: Article created successfully");
-            //this.callPreview();
+            document.getElementById("save").removeAttribute("disabled");
           }
 
         }
@@ -339,7 +343,7 @@ export class CmsComponent implements OnInit {
         } else {
           this.alertService.success("Success: Article updated successfully");
         }
-        //this.callPreview();
+        document.getElementById("save").removeAttribute("disabled");
       },
       error => {
         try {
