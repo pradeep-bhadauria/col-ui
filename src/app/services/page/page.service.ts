@@ -65,4 +65,13 @@ export class PageService {
       );
   }
 
+  getIPLocation(){
+    this.http.get("http://freegeoip.net/json/").subscribe(data => {
+      console.log(data);
+      this.http.get("http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139").subscribe(data => {
+        console.log(data);
+      })
+    })
+  }
+
 }

@@ -26,6 +26,10 @@ export class AppComponent  implements OnInit {
       
     }
   ngOnInit() {
+    this.pageService.getIPLocation();
+    
+
+
     if (this.currentUser == null){
         this.showMenu = false;
     } else {
