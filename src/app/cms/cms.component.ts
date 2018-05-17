@@ -265,7 +265,6 @@ export class CmsComponent implements OnInit {
     } else {
       this.body_err = ""
     }
-    console.log(this.image.get("file"));
     if (this.image == null) {
       this.banner_err = "Pls add image describing your article.";
     } else if (this.image.get("file")["size"] > 2000001) {
@@ -275,8 +274,6 @@ export class CmsComponent implements OnInit {
     } else {
       this.banner_err = "";
     }
-    Array("A", "B")
-    this.image.get("file")["type"]
     return isValid;
   }
 
