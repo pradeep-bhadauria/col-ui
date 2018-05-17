@@ -227,6 +227,8 @@ export class CmsComponent implements OnInit {
       } else {
         this.updateArticle(false);
       }
+    } else {
+      this.alertService.error("Please fix the errors are try again.");
     }
   }
 
@@ -266,11 +268,14 @@ export class CmsComponent implements OnInit {
       this.body_err = ""
     }
     if (this.image == null) {
-      this.banner_err = "Pls add image describing your article.";
+      isValid = false;
+      this.banner_err = "Display image is required!";
     } else if (this.image.get("file")["size"] > 2000001) {
+      isValid = false;
       this.banner_err = "Max size supported is 2mb.";
     } else if (["image/png", "image/jpg", "image/jpeg"].indexOf(this.image.get("file")["type"].toLowerCase()) == -1) {
-      this.banner_err = "Only png and jpg images are supported.";
+      isValid = false;
+      this.banner_err = "Only png, jpg & jpeg formats supported.";
     } else {
       this.banner_err = "";
     }
