@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CmsService } from './cms.service';
+import { CMSService } from './cms.service';
 
-describe('CmsService', () => {
+describe('CMSService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CmsService]
+      providers: [CMSService]
     });
   });
 
-  it('should be created', inject([CmsService], (service: CmsService) => {
+  it('should be created', inject([CMSService], (service: CMSService) => {
     expect(service).toBeTruthy();
   }));
 });
