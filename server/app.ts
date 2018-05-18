@@ -11,6 +11,8 @@ app.use(json());
 app.use(compression());
 app.use(urlencoded({ extended: true }));
 
+const ROOT = path.join(path.resolve(__dirname, '..'));
+
 if (app.get("env") === "production") {
 
   // in production mode run application from dist folder
@@ -18,7 +20,7 @@ if (app.get("env") === "production") {
 }
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join('/dist/client/index.html'));
+  res.sendFile(ROOT + '/dist/client/index.html');
 });
 
 
