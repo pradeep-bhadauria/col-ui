@@ -18,7 +18,7 @@ if (app.get("env") === "production") {
 }
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join('/app/dist/client/index.html'));
+  res.sendFile(path.join('..','dist/client','index.html'));
 });
 
 

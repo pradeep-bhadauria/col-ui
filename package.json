@@ -30,7 +30,9 @@
     "@angular/material": "^5.2.5",
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
+    "@angular/platform-server": "^6.0.2",
     "@angular/router": "^5.2.0",
+    "@nguniversal/module-map-ngfactory-loader": "^6.0.0",
     "@tinymce/tinymce-angular": "^2.0.0",
     "angular2-moment": "^1.9.0",
     "body-parser": "^1.18.2",
@@ -41,6 +43,7 @@
     "ng2-datepicker": "^2.3.0",
     "ngx-facebook": "^2.4.0",
     "rxjs": "^5.5.6",
+    "ts-loader": "^4.3.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

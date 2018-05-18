@@ -74,7 +74,8 @@ const routes: Routes = [
     ProfileComponent
   ],
   imports: [
-    BrowserModule,NgDatepickerModule,
+    BrowserModule.withServerTransition({appId: 'col-ui'}),
+    NgDatepickerModule,
     HttpClientModule,HttpModule,
     RouterModule.forRoot(routes, {useHash: false}),
     FormsModule,
