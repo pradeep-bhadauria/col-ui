@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
                 cssEase: 'linear'
             });
         }
-    },3000);
+    },1000);
 });
 
 wow = new WOW({
