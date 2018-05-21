@@ -69,9 +69,9 @@ export class CmsComponent implements OnInit {
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser == null) {
-      window.location.href = "/login"
+      document.location.href = "/login"
     } else if (currentUser.tid == Constants.ROLES.VIEWERS) {
-      window.location.href = "/?redirect=RestrictedAccess"
+      document.location.href = "/?redirect=RestrictedAccess"
     }
     else {
       this.route.params.subscribe(params => {
@@ -88,7 +88,7 @@ export class CmsComponent implements OnInit {
               let article = JSON.parse(data.data);
               this.is_published = article.is_published;
               if (currentUser.id != article.author.id && currentUser.tid != Constants.ROLES.ADMIN) {
-                window.location.href = "/404"
+                document.location.href = "/404"
               }
               else {
                 this.subject = article.subject;
@@ -217,6 +217,7 @@ export class CmsComponent implements OnInit {
     if (this.validate()) {
       document.getElementById("save").setAttribute("disabled", "disabled");
       if (this.image != null) {
+        Constants.showLoader();
         if (this.article_id == null) {
           this.addArticle();
         } else {
@@ -297,10 +298,12 @@ export class CmsComponent implements OnInit {
       },
       error => {
         try {
+          Constants.hideLoader();
           this.alertService.error(JSON.parse(error._body).message);
           document.getElementById("save").removeAttribute("disabled");
         }
         catch {
+          Constants.hideLoader();
           this.alertService.error("Server Error: Please try after some time.");
           document.getElementById("save").removeAttribute("disabled");
         }
@@ -316,6 +319,7 @@ export class CmsComponent implements OnInit {
           if (this.image != null) {
             this.uploadImage(true);
           } else {
+            Constants.hideLoader();
             this.alertService.success("Success: Article created successfully");
             document.getElementById("save").removeAttribute("disabled");
           }
@@ -324,10 +328,12 @@ export class CmsComponent implements OnInit {
       },
       error => {
         try {
+          Constants.hideLoader();
           this.alertService.error(JSON.parse(error._body).message);
           document.getElementById("save").removeAttribute("disabled");
         }
         catch {
+          Constants.hideLoader();
           this.alertService.error("Server Error: Please try after some time.");
           document.getElementById("save").removeAttribute("disabled");
         }
@@ -339,18 +345,22 @@ export class CmsComponent implements OnInit {
     this.cmsService.update(this.article_id, this.selectedCategory, this.selectedSubCategory, this.subject, this.overview, this.keyword, this.imageUrl, this.country, this.state, this.body, this.city).subscribe(
       data => {
         if (flag) {
+          Constants.hideLoader();
           this.alertService.success("Success: Article created successfully");
         } else {
+          Constants.hideLoader();
           this.alertService.success("Success: Article updated successfully");
         }
         document.getElementById("save").removeAttribute("disabled");
       },
       error => {
         try {
+          Constants.hideLoader();
           this.alertService.error(JSON.parse(error._body).message);
           document.getElementById("save").removeAttribute("disabled");
         }
         catch {
+          Constants.hideLoader();
           this.alertService.error("Server Error: Please try after some time.");
           document.getElementById("save").removeAttribute("disabled");
         }
@@ -409,7 +419,7 @@ export class CmsComponent implements OnInit {
         var uid = article.uid;
         var cat = article.category.name.trim().toLowerCase();
         var sub_cat = article.sub_category.name.trim().toLowerCase();
-        window.location.href = "/articles/" + cat + "/" + sub_cat + "/" + uid
+        document.location.href = "/articles/" + cat + "/" + sub_cat + "/" + uid
       },
       error => {
         this.alertService.error("Server Error: Error redirecting to preview. Please go to 'Profile > My Articles' for link.");
@@ -419,7 +429,7 @@ export class CmsComponent implements OnInit {
 
   cancel() {
     if (confirm("Warning! Are you sure to cancel any changes made will be lost permanently.")) {
-      window.location.href = "/";
+      document.location.href = "/";
     }
   }
   publish() {

@@ -24,6 +24,17 @@ export class Constants {
       return new RequestOptions({ headers: headers });
     }
   }
+
+  public static showLoader(){
+    document.getElementById("preloader").style.removeProperty("display");
+    document.getElementById("status").style.removeProperty("display");
+  }
+
+  public static hideLoader(){
+    document.getElementById("preloader").style.setProperty("display","none");
+    document.getElementById("status").style.setProperty("display","none");
+  }
+
   public static CATEGORIES = {
     LIFESTYLE:"Lifestyle",
     ENTERTAINMENT:"Entertainment",
