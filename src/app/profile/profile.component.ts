@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if(this.user == null){
-      window.location.href = "/login"
+      document.location.href = "/login"
     }
   }
   ngOnInit(){
@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit {
           this.alertService.success(data.message + " We are logging you out for name to reflect.");
           setTimeout(function(){
             localStorage.removeItem("currentUser");
-            window.location.href = "/login";
+            document.location.href = "/login";
           },5000);
         },
         error=>{

@@ -32,9 +32,9 @@ export class UserlevelComponent implements OnInit {
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (currentUser == null) {
       localStorage.removeItem("currentUser");
-      window.location.href = "/login";
+      document.location.href = "/login";
     } else if (currentUser.tid != Constants.ROLES.ADMIN) {
-      window.location.href = "/?redirect=RestrictedAccess"
+      document.location.href = "/?redirect=RestrictedAccess"
     } else {
       this.loading = true;
       this.getCount();

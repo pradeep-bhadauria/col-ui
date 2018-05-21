@@ -64,7 +64,7 @@ export class PageComponent implements OnInit {
             this.getArticlesByCategory();
           }
         } else {
-          window.location.href = "/404";
+          document.location.href = "/404";
         }
       },
       error => {
@@ -88,7 +88,7 @@ export class PageComponent implements OnInit {
             this.getArticlesBySubCategory();
           }
         } else {
-          window.location.href = "/404";
+          document.location.href = "/404";
         }
       },
       error => {
@@ -140,12 +140,12 @@ export class PageComponent implements OnInit {
         if(data.data != undefined){
           var temp = JSON.parse(data.data);
           if(this.currentUser == null && temp.is_published != Constants.DEFAULT.PUBLISHED){
-            window.location.href = "/404";
+            document.location.href = "/404";
           } else if (this.currentUser != null && 
             this.currentUser.id != temp.author.id && 
             temp.is_published != Constants.DEFAULT.PUBLISHED && 
             this.currentUser.tid != Constants.ROLES.ADMIN){
-            window.location.href = "/404";
+            document.location.href = "/404";
           } else {
             this.article = temp;
             this.article.body = this.sanitizer.bypassSecurityTrustHtml(this.article.body)
@@ -160,7 +160,7 @@ export class PageComponent implements OnInit {
             this.displayFlag=3;
           }
         } else {
-          window.location.href = "/404"
+          document.location.href = "/404"
         }
       },
       error => {
